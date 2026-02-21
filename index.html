@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASL SONATRACH - Affaires Sociales & Loisirs</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="SONATRACH.png">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-orange: #EC8C34;
+            --primary-dark: #d67a2a;
+            --text-dark: #2c3e50;
+            --text-gray: #5a6c7d;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(236, 140, 52, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Max-width wrapper for zoom out protection */
+        .site-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--bg-light);
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .top-bar {
+            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 10px 0;
+            font-size: 0.85rem;
+        }
+
+        .lang-btn {
+            color: white;
+            text-decoration: none;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: rgba(255,255,255,0.2);
+            opacity: 1;
+            color: white;
+        }
+
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .brand-logo {
+            height: 55px;
+            width: auto;
+        }
+
+        .brand-text {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        .brand-text small {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-gray);
+            font-weight: 400;
+        }
+
+        /* Navigation */
+        .navbar-nav {
+            gap: 5px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--text-dark) !important;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 10px 16px !important;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary-orange) !important;
+            background: rgba(236, 140, 52, 0.05);
+        }
+
+        /* Dropdown Hover */
+        .dropdown-menu {
+            border: none;
+            box-shadow: var(--shadow-hover);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            display: block;
+            pointer-events: none;
+            min-width: 220px;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .dropdown-item {
+            padding: 10px 16px;
+            border-radius: 6px;
+            transition: var(--transition);
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(236, 140, 52, 0.1);
+            color: var(--primary-orange);
+            padding-left: 20px;
+        }
+
+        /* APPELER Button */
+        .btn-call {
+            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-dark) 100%);
+            color: white !important;
+            padding: 8px 20px !important;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(236, 140, 52, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            cursor: default;
+        }
+
+        .btn-call:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(236, 140, 52, 0.4);
+            color: white !important;
+        }
+
+        /* Hero Carousel */
+        .hero-section {
+            position: relative;
+            height: 600px;
+        }
+
+        .carousel-item {
+            height: 600px;
+        }
+
+        .carousel-item img {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+            filter: brightness(0.6);
+        }
+
+        .carousel-caption {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 90%;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .carousel-caption h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .carousel-caption p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .btn-hero {
+            background: var(--primary-orange);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 30px;
+            font-weight: 700;
+            border: 2px solid var(--primary-orange);
+            transition: var(--transition);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-hero:hover {
+            background: transparent;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .carousel-indicators button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: 0 6px;
+            background-color: rgba(255,255,255,0.5);
+            border: none;
+        }
+
+        .carousel-indicators button.active {
+            background-color: var(--primary-orange);
+            width: 35px;
+            border-radius: 6px;
+        }
+
+        /* News Ticker */
+        .news-ticker {
+            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 14px 0;
+            overflow: hidden;
+        }
+
+        .ticker-wrapper {
+            display: flex;
+            animation: ticker 25s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker-item {
+            padding: 0 40px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ticker-item::before {
+            content: '•';
+            color: rgba(255,255,255,0.7);
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Sections */
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 0 20px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary-orange);
+            border-radius: 2px;
+        }
+
+        /* Cards */
+        .card-custom {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            border: none;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-img-wrapper {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card-custom:hover .card-img-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .card-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary-orange);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        /* Dossier à fournir */
+        .dossier-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        .dossier-section h6 {
+            color: var(--primary-orange);
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dossier-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .dossier-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #dee2e6;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .dossier-list li:last-child {
+            border-bottom: none;
+        }
+
+        .dossier-list i {
+            color: var(--primary-orange);
+            font-size: 0.9rem;
+        }
+
+        /* Service Icons */
+        .service-icon-box {
+            text-align: center;
+            padding: 40px 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .service-icon-box:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(236, 140, 52, 0.1) 0%, rgba(236, 140, 52, 0.2) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: var(--primary-orange);
+            transition: var(--transition);
+        }
+
+        .service-icon-box:hover .service-icon {
+            background: var(--primary-orange);
+            color: white;
+            transform: rotateY(360deg);
+        }
+
+        /* Regions */
+        .region-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 280px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .region-card:hover {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .region-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .region-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .region-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+            padding: 30px 20px 20px;
+            color: white;
+        }
+
+        .region-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .region-services {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .service-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Map Section - Leaflet */
+        .map-wrapper {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        #algeria-map {
+            height: 600px;
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 2px solid var(--primary-orange);
+            color: var(--primary-orange);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        /* Custom Leaflet Markers */
+        .custom-marker {
+            background: var(--primary-orange);
+            border: 3px solid white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        .marker-laboratoires { background: #EC8C34; }
+        .marker-cms { background: #3498db; }
+        .marker-cmt { background: #e74c3c; }
+        .marker-cliniques { background: #27ae60; }
+
+        /* Stats */
+        .stat-box {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .stat-box:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-orange);
+            margin-bottom: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-widget h4 {
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary-orange);
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-orange);
+            padding-left: 5px;
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: #adb5bd;
+            font-size: 0.95rem;
+        }
+
+        .footer-contact i {
+            color: var(--primary-orange);
+            margin-top: 4px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-orange);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 40px;
+            padding-top: 20px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        /* Animation classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .text-orange {
+            color: var(--primary-orange) !important;
+        }
+
+        /* Mobile Responsive Improvements */
+        @media (max-width: 991px) {
+            .hero-section, .carousel-item {
+                height: 500px;
+            }
+            .carousel-caption h1 {
+                font-size: 2.2rem;
+            }
+            .carousel-caption p {
+                font-size: 1.1rem;
+            }
+            .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                box-shadow: none;
+                border: 1px solid #eee;
+                pointer-events: auto;
+            }
+            .nav-item.dropdown.show .dropdown-menu {
+                display: block;
+            }
+            #algeria-map {
+                height: 400px;
+            }
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            .brand-text {
+                font-size: 1.1rem;
+            }
+            .brand-logo {
+                height: 45px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section, .carousel-item {
+                height: 400px;
+            }
+            .carousel-caption h1 {
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+            .carousel-caption p {
+                font-size: 1rem;
+                margin-bottom: 20px;
+            }
+            .btn-hero {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            .section-padding {
+                padding: 50px 0;
+            }
+            .region-card {
+                height: 220px;
+            }
+            #algeria-map {
+                height: 350px;
+            }
+            .service-icon-box {
+                padding: 30px 20px;
+            }
+            .service-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            .ticker-item {
+                padding: 0 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .carousel-caption h1 {
+                font-size: 1.5rem;
+            }
+            .carousel-caption p {
+                font-size: 0.9rem;
+            }
+            .brand-text small {
+                display: none;
+            }
+            .top-bar .col-md-6 {
+                text-align: center !important;
+            }
+            .language-selector {
+                margin-top: 5px;
+            }
+            .filter-btn {
+                padding: 6px 15px;
+                font-size: 0.85rem;
+            }
+            .stat-number {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (hover: none) {
+            .dropdown-menu {
+                display: none;
+            }
+            .nav-item.dropdown.show .dropdown-menu {
+                display: block;
+            }
+            .region-card:active {
+                transform: scale(0.98);
+            }
+            .service-icon-box:active {
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="site-wrapper">
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <small><i class="fas fa-phone-alt me-2"></i> +213 23 XX XX XX | <i class="fas fa-envelope ms-md-3 me-2"></i> contact@asl-sonatrach.dz</small>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
+                    <div class="language-selector">
+                        <span class="me-2"><i class="fas fa-globe"></i></span>
+                        <a href="#" class="lang-btn" data-lang="ar">AR</a>
+                        <a href="#" class="lang-btn active" data-lang="fr">FR</a>
+                        <a href="#" class="lang-btn" data-lang="en">EN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header" id="mainHeader">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="#" onclick="showHome()">
+                    <img src="SONATRACH.png" alt="SONATRACH Logo" class="brand-logo">
+                    <div class="brand-text">
+                        ASL
+                        <small>Affaires Sociales & Loisirs</small>
+                    </div>
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">SANTÉ</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" onclick="showService('medecine-travail')"><i class="fas fa-briefcase-medical me-2"></i>Médecine de Travail</a></li>
+                                <li><a class="dropdown-item" onclick="showService('medecine-sociale')"><i class="fas fa-heart me-2"></i>Médecine Sociale</a></li>
+                                <li><a class="dropdown-item" onclick="showService('laboratoires')"><i class="fas fa-flask me-2"></i>Laboratoires</a></li>
+                                <li><a class="dropdown-item" onclick="showService('tiers-payant')"><i class="fas fa-credit-card me-2"></i>Tiers Payant</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">APS</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" onclick="showService('omra')"><i class="fas fa-kaaba me-2"></i>Omra</a></li>
+                                <li><a class="dropdown-item" onclick="showService('retraite')"><i class="fas fa-user-clock me-2"></i>Journée Retraite</a></li>
+                                <li><a class="dropdown-item" onclick="showService('circoncision')"><i class="fas fa-child me-2"></i>Journée Circoncision</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">ENFANCES</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" onclick="showService('creches')"><i class="fas fa-home me-2"></i>Crèches</a></li>
+                                <li><a class="dropdown-item" onclick="showService('activites-enfants')"><i class="fas fa-palette me-2"></i>Activités</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">SPL</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" onclick="showService('sport')"><i class="fas fa-trophy me-2"></i>Sport</a></li>
+                                <li><a class="dropdown-item" onclick="showService('colonies')"><i class="fas fa-umbrella-beach me-2"></i>Colonies Vacances</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="#regions" onclick="showHomeSection('regions')">RÉGIONS</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="#cartographie" onclick="showHomeSection('cartographie')">CARTOGRAPHIE</a>
+                        </li>
+                    </ul>
+                    
+                    <a href="#" class="btn btn-call">
+                        <i class="fas fa-phone-alt"></i> APPELER
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Carousel -->
+    <section class="hero-section" id="home">
+        <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3"></button>
+            </div>
+            
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1920&h=600&fit=crop" alt="Santé">
+                    <div class="carousel-caption">
+                        <h1>Santé & Bien-être</h1>
+                        <p>Des services médicaux complets pour tous les travailleurs SONATRACH</p>
+                        <a href="#" onclick="showService('sante')" class="btn btn-hero">Découvrir</a>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=1920&h=600&fit=crop" alt="Enfances">
+                    <div class="carousel-caption">
+                        <h1>Protection de l'Enfance</h1>
+                        <p>Des centres d'accueil modernes pour vos enfants</p>
+                        <a href="#" onclick="showService('enfances')" class="btn btn-hero">Explorer</a>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=600&fit=crop" alt="Omra">
+                    <div class="carousel-caption">
+                        <h1>Action Sociale</h1>
+                        <p>Omra, retraites et services pour nos retraités</p>
+                        <a href="#" onclick="showService('aps')" class="btn btn-hero">Découvrir</a>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <img src="https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_xl/f_auto/primary/hiuf5ahd3cbhr11q6m5m" alt="Sport">
+                    <div class="carousel-caption">
+                        <h1>Sport & Loisirs</h1>
+                        <p>Championnats et activités pour toute la famille</p>
+                        <a href="#" onclick="showService('spl')" class="btn btn-hero">Rejoindre</a>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </section>
+
+    <!-- News Ticker -->
+    <div class="news-ticker">
+        <div class="container">
+            <div class="ticker-wrapper">
+                <div class="ticker-item">Nouvelle session Omra 2026 ouverte aux inscriptions</div>
+                <div class="ticker-item">Inauguration centre médical à Hassi Messaoud</div>
+                <div class="ticker-item">Championnat inter-régional football - Finale à Alger</div>
+                <div class="ticker-item">Journée circoncision 2026 - Inscriptions ouvertes</div>
+                <div class="ticker-item">Nouveau laboratoire d'analyses à Arzew</div>
+                <div class="ticker-item">Colonies vacances été 2026 - Programme enrichi</div>
+                <div class="ticker-item">Campagne vaccination annuelle - Tous centres SONATRACH</div>
+                <div class="ticker-item">Nouvelle session Omra 2026 ouverte aux inscriptions</div>
+                <div class="ticker-item">Inauguration centre médical à Hassi Messaoud</div>
+                <div class="ticker-item">Championnat inter-régional football - Finale à Alger</div>
+                <div class="ticker-item">Journée circoncision 2026 - Inscriptions ouvertes</div>
+                <div class="ticker-item">Nouveau laboratoire d'analyses à Arzew</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Detail Section -->
+    <section id="services-detail" class="section-padding d-none">
+        <div class="container">
+            <button class="btn btn-outline-secondary mb-4" onclick="showHome()">
+                <i class="fas fa-arrow-left me-2"></i>Retour à l'accueil
+            </button>
+            
+            <!-- Médecine de Travail -->
+            <div id="service-medecine-travail" class="service-detail d-none">
+                <div class="section-header">
+                    <h2><i class="fas fa-briefcase-medical text-orange me-3"></i>Médecine de Travail</h2>
+                    <p>Visites médicales obligatoires et prévention des risques professionnels</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card-custom p-4">
+                            <h4 class="mb-4">Demande de Visite Médicale</h4>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Matricule SONATRACH" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom et Prénom" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="form-control">
+                                            <option>Type de visite...</option>
+                                            <option>Visite d'embauche</option>
+                                            <option>Visite périodique</option>
+                                            <option>Visite de reprise</option>
+                                            <option>Visite de départ</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="date" class="form-control">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Soumettre la demande</button>
+                            </form>
+                            
+                            <div class="dossier-section mt-4">
+                                <h6><i class="fas fa-folder-open"></i> DOSSIER À FOURNIR</h6>
+                                <ul class="dossier-list">
+                                    <li><i class="fas fa-check-circle"></i> Copie de la carte d'identité nationale</li>
+                                    <li><i class="fas fa-check-circle"></i> Attestation de travail SONATRACH</li>
+                                    <li><i class="fas fa-check-circle"></i> 1 photo d'identité récente</li>
+                                    <li><i class="fas fa-check-circle"></i> Fiche médicale précédente (si disponible)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card-custom p-4 h-100">
+                            <h5 class="text-orange mb-3">Nos Centres Médicaux</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-3"><i class="fas fa-map-marker-alt text-orange me-2"></i>Alger - Centre Médical Principal</li>
+                                <li class="mb-3"><i class="fas fa-map-marker-alt text-orange me-2"></i>Hassi Messaoud - CMT</li>
+                                <li class="mb-3"><i class="fas fa-map-marker-alt text-orange me-2"></i>Arzew - Centre Médical</li>
+                                <li class="mb-3"><i class="fas fa-map-marker-alt text-orange me-2"></i>Béjaïa - CMS</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tiers Payant -->
+            <div id="service-tiers-payant" class="service-detail d-none">
+                <div class="section-header">
+                    <h2><i class="fas fa-credit-card text-orange me-3"></i>Tiers Payant</h2>
+                    <p>Convention avec les cliniques et pharmacies pour prise en charge directe</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card-custom p-4">
+                            <h4 class="mb-4">Demande de Prise en Charge Tiers Payant</h4>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Matricule" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom du bénéficiaire" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="text" class="form-control" placeholder="Établissement médical concerné">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Envoyer la demande</button>
+                            </form>
+                            
+                            <div class="dossier-section mt-4">
+                                <h6><i class="fas fa-folder-open"></i> DOSSIER À FOURNIR</h6>
+                                <ul class="dossier-list">
+                                    <li><i class="fas fa-check-circle"></i> Extrait de naissance (copie légalisée)</li>
+                                    <li><i class="fas fa-check-circle"></i> Copie de la carte d'identité nationale</li>
+                                    <li><i class="fas fa-check-circle"></i> 1 photo d'identité</li>
+                                    <li><i class="fas fa-check-circle"></i> Attestation de salaire ou pension</li>
+                                    <li><i class="fas fa-check-circle"></i> Certificat médical de l'établissement</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Médecine Sociale -->
+            <div id="service-medecine-sociale" class="service-detail d-none">
+                <div class="section-header">
+                    <h2><i class="fas fa-heart text-orange me-3"></i>Médecine Sociale</h2>
+                    <p>Prise en charge médicale des familles et consultations spécialisées</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card-custom p-4">
+                            <h4 class="mb-4">Demande de Prise en Charge Familiale</h4>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom du travailleur" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Matricule" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom du bénéficiaire" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Lien de parenté" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Envoyer</button>
+                            </form>
+                            
+                            <div class="dossier-section mt-4">
+                                <h6><i class="fas fa-folder-open"></i> DOSSIER À FOURNIR</h6>
+                                <ul class="dossier-list">
+                                    <li><i class="fas fa-check-circle"></i> Copie de la carte d'identité du travailleur</li>
+                                    <li><i class="fas fa-check-circle"></i> Copie de la carte d'identité du bénéficiaire</li>
+                                    <li><i class="fas fa-check-circle"></i> Extrait de naissance du bénéficiaire</li>
+                                    <li><i class="fas fa-check-circle"></i> Certificat de vie et de coutume (pour conjoint)</li>
+                                    <li><i class="fas fa-check-circle"></i> 1 photo d'identité du bénéficiaire</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Laboratoires -->
+            <div id="service-laboratoires" class="service-detail d-none">
+                <div class="section-header">
+                    <h2><i class="fas fa-flask text-orange me-3"></i>Laboratoires d'Analyses</h2>
+                    <p>Analyses médicales biologiques et dépistage</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card-custom p-4">
+                            <h4 class="mb-4">Demande d'Analyse</h4>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Matricule" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom et Prénom" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <textarea class="form-control" rows="3" placeholder="Type d'analyses demandées"></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Soumettre</button>
+                            </form>
+                            
+                            <div class="dossier-section mt-4">
+                                <h6><i class="fas fa-folder-open"></i> DOSSIER À FOURNIR</h6>
+                                <ul class="dossier-list">
+                                    <li><i class="fas fa-check-circle"></i> Copie de la carte d'identité</li>
+                                    <li><i class="fas fa-check-circle"></i> Ordonnance médicale</li>
+                                    <li><i class="fas fa-check-circle"></i> Carte de soins SONATRACH</li>
+                                    <li><i class="fas fa-check-circle"></i> 1 photo d'identité (pour nouveau dossier)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Omra -->
+            <div id="service-omra" class="service-detail d-none">
+                <div class="section-header">
+                    <h2><i class="fas fa-kaaba text-orange me-3"></i>Omra 2026</h2>
+                    <p>Organisation du pèlerinage pour les retraités SONATRACH</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card-custom p-4">
+                            <h4 class="mb-4">Inscription Omra 2026</h4>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Matricule retraité" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom et Prénom" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="date" class="form-control" placeholder="Date de naissance">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="tel" class="form-control" placeholder="Téléphone">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">S'inscrire</button>
+                            </form>
+                            
+                            <div class="dossier-section mt-4">
+                                <h6><i class="fas fa-folder-open"></i> DOSSIER À FOURNIR</h6>
+                                <ul class="dossier-list">
+                                    <li><i class="fas fa-check-circle"></i> Copie de la carte d'identité nationale (valide)</li>
+                                    <li><i class="fas fa-check-circle"></i> Extrait de naissance (copie légalisée)</li>
+                                    <li><i class="fas fa-check-circle"></i> 4 photos d'identité fond blanc</li>
+                                    <li><i class="fas fa-check-circle"></i> Certificat médical d'aptitude au voyage</li>
+                                    <li><i class="fas fa-check-circle"></i> Attestation de retraite SONATRACH</li>
+                                    <li><i class="fas fa-check-circle"></i> Passeport biométrique valide (min 6 mois)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card-custom p-4 bg-light">
+                            <h5 class="text-orange mb-3">Informations</h5>
+                            <p><i class="fas fa-calendar me-2"></i><strong>Départ:</strong> Mars 2026</p>
+                            <p><i class="fas fa-users me-2"></i><strong>Places:</strong> 200 retraités</p>
+                            <p><i class="fas fa-plane me-2"></i><strong>Vol:</strong> Charter direct</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journée Retraite -->
+            <div id="service-retraite" class="service-detail d-none">
+                <div class="section-header">
+                    <h2><i class="fas fa-user-clock text-orange me-3"></i>Journée de Retraite</h2>
+                    <p>Cérémonie annuelle d'honneur pour les nouveaux retraités</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card-custom p-4">
+                            <h4 class="mb-4">Inscription à la Journée de Retraite 2026</h4>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Matricule" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom et Prénom" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="date" class="form-control" placeholder="Date de retraite">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="number" class="form-control" placeholder="Nombre d'accompagnants">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Confirmer participation</button>
+                            </form>
+                            
+                            <div class="dossier-section mt-4">
+                                <h6><i class="fas fa-folder-open"></i> DOSSIER À FOURNIR</h6>
+                                <ul class="dossier-list">
+                                    <li><i class="fas fa-check-circle"></i> Copie de la carte d'identité nationale</li>
+                                    <li><i class="fas fa-check-circle"></i> Attestation de retraite SONATRACH</li>
+                                    <li><i class="fas fa-check-circle"></i> 1 photo d'identité</li>
+                                    <li><i class="fas fa-check-circle"></i> Liste des accompagnants (noms et CIN)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journée Circoncision -->
+            <div id="service-circoncision" class="service-detail d-none">
+                <div class="section-header">
+                    <h2><i class="fas fa-child text-orange me-3"></i>Journée de la Circoncision</h2>
+                    <p>Organisation annuelle gratuite pour les fils des travailleurs</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card-custom p-4">
+                            <h4 class="mb-4">Inscription Journée Circoncision 2026</h4>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Matricule du père" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom du père" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom de l'enfant" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="number" class="form-control" placeholder="Âge de l'enfant" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Inscrire mon enfant</button>
+                            </form>
+                            
+                            <div class="dossier-section mt-4">
+                                <h6><i class="fas fa-folder-open"></i> DOSSIER À FOURNIR</h6>
+                                <ul class="dossier-list">
+                                    <li><i class="fas fa-check-circle"></i> Copie de la carte d'identité du père</li>
+                                    <li><i class="fas fa-check-circle"></i> Extrait de naissance de l'enfant (copie)</li>
+                                    <li><i class="fas fa-check-circle"></i> 1 photo d'identité de l'enfant</li>
+                                    <li><i class="fas fa-check-circle"></i> Certificat médical de l'enfant</li>
+                                    <li><i class="fas fa-check-circle"></i> Attestation de travail SONATRACH du père</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Date prévue:</strong> Juillet 2026<br>
+                            <strong>Lieu:</strong> Centres médicaux SONATRACH<br>
+                            <strong>Inscriptions:</strong> Jusqu'au 15 Juin 2026
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crèches -->
+            <div id="service-creches" class="service-detail d-none">
+                <div class="section-header">
+                    <h2><i class="fas fa-home text-orange me-3"></i>Crèches et Centres d'Accueil</h2>
+                    <p>Accueil de qualité pour les enfants de 6 mois à 6 ans</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card-custom p-4">
+                            <h4 class="mb-4">Demande d'Inscription en Crèche</h4>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Matricule du parent" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom du parent" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom de l'enfant" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="date" class="form-control" placeholder="Date de naissance">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Soumettre la demande</button>
+                            </form>
+                            
+                            <div class="dossier-section mt-4">
+                                <h6><i class="fas fa-folder-open"></i> DOSSIER À FOURNIR</h6>
+                                <ul class="dossier-list">
+                                    <li><i class="fas fa-check-circle"></i> Copie de la carte d'identité des parents</li>
+                                    <li><i class="fas fa-check-circle"></i> Extrait de naissance de l'enfant (copie)</li>
+                                    <li><i class="fas fa-check-circle"></i> Carnet de vaccination à jour</li>
+                                    <li><i class="fas fa-check-circle"></i> Certificat médical de bonne santé</li>
+                                    <li><i class="fas fa-check-circle"></i> 2 photos d'identité de l'enfant</li>
+                                    <li><i class="fas fa-check-circle"></i> Attestation de travail SONATRACH</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activités Enfants -->
+            <div id="service-activites-enfants" class="service-detail d-none">
+                <div class="section-header">
+                    <h2><i class="fas fa-palette text-orange me-3"></i>Activités Éducatives</h2>
+                    <p>Programmes d'apprentissage et activités culturelles</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card-custom p-4">
+                            <h4 class="mb-4">Inscription aux Activités</h4>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom du parent" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Matricule" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom de l'enfant" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="form-control">
+                                            <option>Choisir l'activité...</option>
+                                            <option>Soutien scolaire</option>
+                                            <option>Arts plastiques</option>
+                                            <option>Musique</option>
+                                            <option>Sport</option>
+                                            <option>Informatique</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Inscrire</button>
+                            </form>
+                            
+                            <div class="dossier-section mt-4">
+                                <h6><i class="fas fa-folder-open"></i> DOSSIER À FOURNIR</h6>
+                                <ul class="dossier-list">
+                                    <li><i class="fas fa-check-circle"></i> Copie de la carte d'identité du parent</li>
+                                    <li><i class="fas fa-check-circle"></i> Extrait de naissance de l'enfant</li>
+                                    <li><i class="fas fa-check-circle"></i> Certificat médical</li>
+                                    <li><i class="fas fa-check-circle"></i> 1 photo d'identité de l'enfant</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sport -->
+            <div id="service-sport" class="service-detail d-none">
+                <div class="section-header">
+                    <h2><i class="fas fa-trophy text-orange me-3"></i>Championnats Sportifs</h2>
+                    <p>Compétitions internes et inter-régionales</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card-custom p-4">
+                            <h4 class="mb-4">Inscription aux Championnats</h4>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Matricule" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom et Prénom" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="form-control">
+                                            <option>Discipline...</option>
+                                            <option>Football</option>
+                                            <option>Handball</option>
+                                            <option>Volleyball</option>
+                                            <option>Athlétisme</option>
+                                            <option>Tennis</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Région">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">S'inscrire</button>
+                            </form>
+                            
+                            <div class="dossier-section mt-4">
+                                <h6><i class="fas fa-folder-open"></i> DOSSIER À FOURNIR</h6>
+                                <ul class="dossier-list">
+                                    <li><i class="fas fa-check-circle"></i> Copie de la carte d'identité nationale</li>
+                                    <li><i class="fas fa-check-circle"></i> Attestation de travail SONATRACH</li>
+                                    <li><i class="fas fa-check-circle"></i> Certificat médical d'aptitude sportive</li>
+                                    <li><i class="fas fa-check-circle"></i> 1 photo d'identité</li>
+                                    <li><i class="fas fa-check-circle"></i> Fiche technique du joueur</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonies -->
+            <div id="service-colonies" class="service-detail d-none">
+                <div class="section-header">
+                    <h2><i class="fas fa-umbrella-beach text-orange me-3"></i>Colonies de Vacances</h2>
+                    <p>Séjours estivaux pour les enfants des travailleurs</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card-custom p-4">
+                            <h4 class="mb-4">Inscription Colonies de Vacances 2026</h4>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Matricule du parent" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom du parent" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nom de l'enfant" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="number" class="form-control" placeholder="Âge" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <select class="form-control">
+                                            <option>Destination préférée...</option>
+                                            <option>Tipaza</option>
+                                            <option>Béjaïa</option>
+                                            <option>Skikda</option>
+                                            <option>Oran</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Inscrire</button>
+                            </form>
+                            
+                            <div class="dossier-section mt-4">
+                                <h6><i class="fas fa-folder-open"></i> DOSSIER À FOURNIR</h6>
+                                <ul class="dossier-list">
+                                    <li><i class="fas fa-check-circle"></i> Copie de la carte d'identité du parent</li>
+                                    <li><i class="fas fa-check-circle"></i> Extrait de naissance de l'enfant (copie)</li>
+                                    <li><i class="fas fa-check-circle"></i> Carnet de vaccination à jour</li>
+                                    <li><i class="fas fa-check-circle"></i> Certificat médical de bonne santé</li>
+                                    <li><i class="fas fa-check-circle"></i> 2 photos d'identité de l'enfant</li>
+                                    <li><i class="fas fa-check-circle"></i> Attestation de travail SONATRACH</li>
+                                    <li><i class="fas fa-check-circle"></i> Autorisation parentale signée</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card-custom p-4">
+                            <h5 class="text-orange mb-3">Destinations 2026</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-map-marker-alt text-orange me-2"></i>Tipaza - Complexe touristique</li>
+                                <li class="mb-2"><i class="fas fa-map-marker-alt text-orange me-2"></i>Béjaïa - Village vacances</li>
+                                <li class="mb-2"><i class="fas fa-map-marker-alt text-orange me-2"></i>Skikda - Centre de loisirs</li>
+                                <li class="mb-2"><i class="fas fa-map-marker-alt text-orange me-2"></i>Oran - Club balnéaire</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Quick Services -->
+    <section id="accueil-services" class="section-padding bg-white">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Nos Services</h2>
+                <p>Des solutions complètes pour le bien-être des travailleurs et leurs familles</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6 fade-in">
+                    <div class="service-icon-box" onclick="showService('sante')">
+                        <div class="service-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h4>Santé</h4>
+                        <p class="text-muted">Médecine de travail, sociale, laboratoires et tiers payant</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 fade-in" style="animation-delay: 0.1s;">
+                    <div class="service-icon-box" onclick="showService('aps')">
+                        <div class="service-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h4>Action Sociale</h4>
+                        <p class="text-muted">Omra, retraites, circoncision et services aux retraités</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 fade-in" style="animation-delay: 0.2s;">
+                    <div class="service-icon-box" onclick="showService('enfances')">
+                        <div class="service-icon">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <h4>Enfances</h4>
+                        <p class="text-muted">Crèches, centres d'accueil et activités éducatives</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 fade-in" style="animation-delay: 0.3s;">
+                    <div class="service-icon-box" onclick="showService('spl')">
+                        <div class="service-icon">
+                            <i class="fas fa-running"></i>
+                        </div>
+                        <h4>Sport & Loisirs</h4>
+                        <p class="text-muted">Championnats, colonies de vacances et activités</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Regions Section -->
+    <section id="regions" class="section-padding">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Nos Régions</h2>
+                <p>Présence dans 10 régions stratégiques à travers l'Algérie</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-4 col-sm-6 fade-in">
+                    <div class="region-card" onclick="showRegionDetail('alger')">
+                        <img src="https://www.shutterstock.com/image-photo/landscape-algiers-city-balcony-el-600nw-1488379289.jpg" alt="Alger">
+                        <div class="region-overlay">
+                            <div class="region-name">Alger</div>
+                            <small>Siège social & Direction Générale</small>
+                            <div class="region-services">
+                                <span class="service-tag">Santé</span>
+                                <span class="service-tag">APS</span>
+                                <span class="service-tag">SPL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.05s;">
+                    <div class="region-card" onclick="showRegionDetail('arzew')">
+                        <img src="https://www.shutterstock.com/image-photo/aerial-view-arzew-oran-algeria-260nw-2696992561.jpg" alt="Arzew">
+                        <div class="region-overlay">
+                            <div class="region-name">Arzew</div>
+                            <small>Zone industrielle majeure</small>
+                            <div class="region-services">
+                                <span class="service-tag">Santé</span>
+                                <span class="service-tag">SPL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.1s;">
+                    <div class="region-card" onclick="showRegionDetail('adrar')">
+                        <img src="https://l450v.alamy.com/450v/w68hjc/adrar-city-in-desert-sahara-algeria-w68hjc.jpg" alt="Adrar">
+                        <div class="region-overlay">
+                            <div class="region-name">Adrar</div>
+                            <small>Sahara algérien</small>
+                            <div class="region-services">
+                                <span class="service-tag">Santé</span>
+                                <span class="service-tag">APS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.15s;">
+                    <div class="region-card" onclick="showRegionDetail('bejaia')">
+                        <img src="https://www.shutterstock.com/image-photo/bejaia-city-coast-algeria-600nw-2422296857.jpg" alt="Béjaïa">
+                        <div class="region-overlay">
+                            <div class="region-name">Béjaïa</div>
+                            <small>Côte kabyle</small>
+                            <div class="region-services">
+                                <span class="service-tag">Santé</span>
+                                <span class="service-tag">Enfances</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.2s;">
+                    <div class="region-card" onclick="showRegionDetail('skikda')">
+                        <img src="https://www.shutterstock.com/image-photo/port-panorama-day-time-skikda-260nw-1314090872.jpg" alt="Skikda">
+                        <div class="region-overlay">
+                            <div class="region-name">Skikda</div>
+                            <small>Port pétrolier</small>
+                            <div class="region-services">
+                                <span class="service-tag">Santé</span>
+                                <span class="service-tag">SPL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.25s;">
+                    <div class="region-card" onclick="showRegionDetail('hassi-messaoud')">
+                        <img src="https://ejatlas.org/media/conflict/hassi-messaoud-oil-field/n-AZEAZEZAE-large570.jpg" alt="Hassi Messaoud">
+                        <div class="region-overlay">
+                            <div class="region-name">Hassi Messaoud</div>
+                            <small>Cœur pétrolier</small>
+                            <div class="region-services">
+                                <span class="service-tag">Santé</span>
+                                <span class="service-tag">APS</span>
+                                <span class="service-tag">SPL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.3s;">
+                    <div class="region-card" onclick="showRegionDetail('hassi-rmel')">
+                        <img src="https://dejongenergyservices.com/wp-content/uploads/2022/09/Hassi-RMel-1024x682-1-1920x655.jpeg" alt="Hassi R'Mel">
+                        <div class="region-overlay">
+                            <div class="region-name">Hassi R'Mel</div>
+                            <small>Gaz naturel</small>
+                            <div class="region-services">
+                                <span class="service-tag">Santé</span>
+                                <span class="service-tag">Enfances</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.35s;">
+                    <div class="region-card" onclick="showRegionDetail('biskra')">
+                        <img src="https://media.istockphoto.com/id/466348095/photo/city-meets-the-desert.jpg?s=612x612&w=0&k=20&c=XI1LRond8tqCnbH8jxT8fFMuXihrZiuB1cjVEfM_foM=" alt="Biskra">
+                        <div class="region-overlay">
+                            <div class="region-name">Biskra</div>
+                            <small>Porte du désert</small>
+                            <div class="region-services">
+                                <span class="service-tag">Santé</span>
+                                <span class="service-tag">APS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.4s;">
+                    <div class="region-card" onclick="showRegionDetail('boumerdes')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Boumerd%C3%A8s.JPG" alt="Boumerdès">
+                        <div class="region-overlay">
+                            <div class="region-name">Boumerdès</div>
+                            <small>Côte centrale</small>
+                            <div class="region-services">
+                                <span class="service-tag">Santé</span>
+                                <span class="service-tag">SPL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.45s;">
+                    <div class="region-card" onclick="showRegionDetail('in-amenas')">
+                        <img src="https://media.cnn.com/api/v1/images/stellar/prod/130117011759-elbagir-algeria-hostage-standoff-00002501.jpg?q=w_1280,h_720,x_0,y_0,c_fill" alt="In Amenas">
+                        <div class="region-overlay">
+                            <div class="region-name">In Amenas</div>
+                            <small>Sud-est saharien</small>
+                            <div class="region-services">
+                                <span class="service-tag">Santé</span>
+                                <span class="service-tag">APS</span>
+                                <span class="service-tag">SPL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cartographie Section with Leaflet Map -->
+    <section id="cartographie" class="section-padding bg-white">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Cartographie</h2>
+                <p>Localisez nos centres médicaux et infrastructures sociales en Algérie</p>
+            </div>
+            
+            <div class="map-wrapper fade-in">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterMap('all')">Tous</button>
+                    <button class="filter-btn" onclick="filterMap('laboratoires')">Laboratoires</button>
+                    <button class="filter-btn" onclick="filterMap('cms')">CMS</button>
+                    <button class="filter-btn" onclick="filterMap('cmt')">CMT</button>
+                    <button class="filter-btn" onclick="filterMap('cliniques')">Cliniques</button>
+                </div>
+                
+                <div id="algeria-map"></div>
+            </div>
+            
+            <div class="row mt-4 g-3 fade-in">
+                <div class="col-md-3 col-6">
+                    <div class="stat-box">
+                        <div class="stat-number">15</div>
+                        <small class="text-muted">Laboratoires</small>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-box">
+                        <div class="stat-number">23</div>
+                        <small class="text-muted">Centres Médico-Sociaux</small>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-box">
+                        <div class="stat-number">12</div>
+                        <small class="text-muted">Centres Médicaux Travail</small>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-box">
+                        <div class="stat-number">45+</div>
+                        <small class="text-muted">Cliniques Conventionnées</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-widget">
+                        <h4><i class="fas fa-info-circle me-2"></i>À Propos</h4>
+                        <p>La Direction des Affaires Sociales et Loisirs (ASL) de SONATRACH est dédiée au bien-être des travailleurs et de leurs familles à travers toute l'Algérie.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6">
+                    <div class="footer-widget">
+                        <h4>Liens Rapides</h4>
+                        <ul class="footer-links">
+                            <li><a href="#" onclick="showService('sante')"><i class="fas fa-chevron-right"></i> Santé</a></li>
+                            <li><a href="#" onclick="showService('aps')"><i class="fas fa-chevron-right"></i> APS</a></li>
+                            <li><a href="#" onclick="showService('enfances')"><i class="fas fa-chevron-right"></i> Enfances</a></li>
+                            <li><a href="#" onclick="showService('spl')"><i class="fas fa-chevron-right"></i> Sport</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget">
+                        <h4>Nos Régions</h4>
+                        <ul class="footer-links">
+                            <li><a href="#regions" onclick="showHomeSection('regions')"><i class="fas fa-map-marker-alt"></i> Alger - Siège</a></li>
+                            <li><a href="#regions" onclick="showHomeSection('regions')"><i class="fas fa-map-marker-alt"></i> Hassi Messaoud</a></li>
+                            <li><a href="#regions" onclick="showHomeSection('regions')"><i class="fas fa-map-marker-alt"></i> Arzew</a></li>
+                            <li><a href="#regions" onclick="showHomeSection('regions')"><i class="fas fa-map-marker-alt"></i> Béjaïa</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget footer-contact">
+                        <h4>Contact</h4>
+                        <p><i class="fas fa-map-marker-alt"></i> Alger. 71 CHEMIN BACHIR EL IBRAHIMI El Mouradia - Alger</p>
+                        <p><i class="fas fa-phone-alt"></i> +213 23 XX XX XX</p>
+                        <p><i class="fas fa-envelope"></i> contact@asl-sonatrach.dz</p>
+                        <p><i class="fas fa-clock"></i> Dim - Jeu : 08h00 - 16h30</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 ASL SONATRACH - Direction des Affaires Sociales et Loisirs. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+</div><!-- End site-wrapper -->
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <script>
+        // Sticky Header
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('mainHeader');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Language Selector
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Show Service - Scrolls to service section
+        function showService(serviceName) {
+            // Hide home sections
+            document.getElementById('home').style.display = 'none';
+            document.querySelector('.news-ticker').style.display = 'none';
+            document.getElementById('accueil-services').style.display = 'none';
+            document.getElementById('regions').style.display = 'none';
+            document.getElementById('cartographie').style.display = 'none';
+            
+            // Show services detail section
+            const servicesDetail = document.getElementById('services-detail');
+            servicesDetail.classList.remove('d-none');
+            
+            // Hide all service details
+            document.querySelectorAll('.service-detail').forEach(el => {
+                el.classList.add('d-none');
+            });
+            
+            // Map service names to IDs
+            const serviceMap = {
+                'sante': 'medecine-travail',
+                'aps': 'omra',
+                'enfances': 'creches',
+                'spl': 'sport',
+                'medecine-travail': 'medecine-travail',
+                'medecine-sociale': 'medecine-sociale',
+                'laboratoires': 'laboratoires',
+                'tiers-payant': 'tiers-payant',
+                'omra': 'omra',
+                'retraite': 'retraite',
+                'circoncision': 'circoncision',
+                'creches': 'creches',
+                'activites-enfants': 'activites-enfants',
+                'sport': 'sport',
+                'colonies': 'colonies'
+            };
+            
+            const targetId = 'service-' + (serviceMap[serviceName] || serviceName);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.classList.remove('d-none');
+                servicesDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Show Home
+        function showHome() {
+            document.getElementById('home').style.display = 'block';
+            document.querySelector('.news-ticker').style.display = 'block';
+            document.getElementById('accueil-services').style.display = 'block';
+            document.getElementById('regions').style.display = 'block';
+            document.getElementById('cartographie').style.display = 'block';
+            document.getElementById('services-detail').classList.add('d-none');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show Home Section (for regions/cartography links)
+        function showHomeSection(sectionId) {
+            showHome();
+            setTimeout(() => {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
+
+        function showRegionDetail(region) {
+            alert('Détails de la région: ' + region + '\n\nCette section afficherait les services disponibles (Santé, APS, Enfances, SPL) pour cette région spécifique.');
+        }
+
+        // Leaflet Map Initialization
+        let map;
+        let markers = [];
+        let mapInitialized = false;
+
+        function initMap() {
+            if (mapInitialized) return;
+            
+            // Initialize map centered on Algeria
+            map = L.map('algeria-map').setView([28.0339, 1.6596], 6);
+
+            // Add OpenStreetMap tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 19
+            }).addTo(map);
+
+            // Define locations data
+            const locations = [
+                // Laboratoires (Orange)
+                { lat: 36.7538, lng: 3.0588, name: "Alger - Laboratoire Central", type: "laboratoires" },
+                { lat: 35.6987, lng: -0.6349, name: "Oran - Laboratoire", type: "laboratoires" },
+                { lat: 36.3650, lng: 6.6147, name: "Constantine - Laboratoire", type: "laboratoires" },
+                { lat: 36.9029, lng: 7.7555, name: "Annaba - Laboratoire", type: "laboratoires" },
+                { lat: 27.8739, lng: -0.2890, name: "Adrar - Laboratoire", type: "laboratoires" },
+                { lat: 28.0500, lng: 9.5500, name: "In Amenas - Laboratoire", type: "laboratoires" },
+                
+                // CMS (Blue)
+                { lat: 36.7631, lng: 3.0506, name: "Alger - CMS Central", type: "cms" },
+                { lat: 35.7047, lng: -0.6453, name: "Oran - CMS", type: "cms" },
+                { lat: 36.3750, lng: 6.6050, name: "Constantine - CMS", type: "cms" },
+                { lat: 36.9122, lng: 7.7453, name: "Annaba - CMS", type: "cms" },
+                { lat: 36.7514, lng: 5.0556, name: "Béjaïa - CMS", type: "cms" },
+                { lat: 34.8500, lng: 5.7333, name: "Biskra - CMS", type: "cms" },
+                { lat: 32.4833, lng: 3.6667, name: "Ghardaïa - CMS", type: "cms" },
+                { lat: 31.9500, lng: 5.3167, name: "Ouargla - CMS", type: "cms" },
+                
+                // CMT (Red)
+                { lat: 36.7438, lng: 3.0688, name: "Alger - CMT Principal", type: "cmt" },
+                { lat: 31.6500, lng: 6.0667, name: "Hassi Messaoud - CMT", type: "cmt" },
+                { lat: 32.9333, lng: 3.3000, name: "Hassi R'Mel - CMT", type: "cmt" },
+                { lat: 35.8500, lng: -0.3167, name: "Arzew - CMT", type: "cmt" },
+                { lat: 28.1000, lng: 9.5000, name: "In Amenas - CMT", type: "cmt" },
+                
+                // Cliniques (Green)
+                { lat: 36.7738, lng: 3.0488, name: "Alger - Clinique du Val", type: "cliniques" },
+                { lat: 35.7087, lng: -0.6249, name: "Oran - Clinique El Azhar", type: "cliniques" },
+                { lat: 36.3850, lng: 6.6047, name: "Constantine - Clinique", type: "cliniques" },
+                { lat: 36.7614, lng: 5.0456, name: "Béjaïa - Clinique", type: "cliniques" },
+                { lat: 36.9222, lng: 7.7353, name: "Annaba - Clinique", type: "cliniques" },
+                { lat: 31.6700, lng: 6.0767, name: "Hassi Messaoud - Clinique", type: "cliniques" },
+                { lat: 32.9433, lng: 3.3100, name: "Hassi R'Mel - Clinique", type: "cliniques" }
+            ];
+
+            // Create custom icon function
+            function createCustomIcon(type) {
+                const colors = {
+                    laboratoires: '#EC8C34',
+                    cms: '#3498db',
+                    cmt: '#e74c3c',
+                    cliniques: '#27ae60'
+                };
+                
+                const labels = {
+                    laboratoires: 'L',
+                    cms: 'S',
+                    cmt: 'T',
+                    cliniques: 'C'
+                };
+                
+                return L.divIcon({
+                    className: 'custom-marker marker-' + type,
+                    html: labels[type],
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 16],
+                    popupAnchor: [0, -16]
+                });
+            }
+
+            // Add markers
+            locations.forEach(loc => {
+                const marker = L.marker([loc.lat, loc.lng], {
+                    icon: createCustomIcon(loc.type)
+                }).addTo(map);
+                
+                marker.bindPopup(`
+                    <div style="text-align: center; min-width: 200px;">
+                        <h6 style="margin: 0 0 5px 0; color: #EC8C34; font-weight: bold; font-size: 14px;">${loc.name}</h6>
+                        <p style="margin: 0; color: #666; font-size: 12px; text-transform: uppercase;">${loc.type}</p>
+                    </div>
+                `);
+                
+                marker.type = loc.type;
+                markers.push(marker);
+            });
+
+            mapInitialized = true;
+        }
+
+        // Map Filter Functionality
+        function filterMap(type) {
+            // Update buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Filter markers
+            markers.forEach(marker => {
+                if (type === 'all') {
+                    marker.addTo(map);
+                } else {
+                    if (marker.type === type) {
+                        marker.addTo(map);
+                    } else {
+                        marker.remove();
+                    }
+                }
+            });
+        }
+
+        // Initialize map when section is visible
+        const mapObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !mapInitialized) {
+                    initMap();
+                }
+            });
+        }, { threshold: 0.1 });
+
+        mapObserver.observe(document.getElementById('cartographie'));
+
+        // Form submissions
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check me-2"></i>Envoyé !';
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    this.reset();
+                }, 2000);
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+
+        // Mobile dropdown touch handling
+        if ('ontouchstart' in window) {
+            document.querySelectorAll('.dropdown-toggle').forEach(dropdown => {
+                dropdown.addEventListener('click', function(e) {
+                    const parent = this.parentElement;
+                    const isOpen = parent.classList.contains('show');
+                    
+                    document.querySelectorAll('.dropdown').forEach(d => {
+                        if (d !== parent) d.classList.remove('show');
+                    });
+                    
+                    if (!isOpen) {
+                        parent.classList.add('show');
+                        e.preventDefault();
+                    }
+                });
+            });
+            
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown')) {
+                    document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
+                }
+            });
+        }
+    </script>
+</body>
+</html>
