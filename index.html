@@ -29,7 +29,7 @@
             --primary-dark: #d67a2a;
             --text-dark: #2c3e50;
             --text-gray: #5a6c7d;
-            --bg-light: #f8f9fa;
+            --bg-light: #ffffff;
             --white: #ffffff;
             --shadow: 0 4px 20px rgba(0,0,0,0.08);
             --shadow-hover: 0 8px 30px rgba(236, 140, 52, 0.2);
@@ -433,7 +433,7 @@
             color: var(--primary-orange);
         }
 
-        /* FIXED: Download button now uses SONATRACH ORANGE instead of green */
+        /* Download button uses SONATRACH ORANGE */
         .btn-download {
             background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-dark) 100%);
             color: white;
@@ -682,7 +682,7 @@
             color: white;
         }
 
-        /* Custom Leaflet Markers */
+        /* Custom Leaflet Markers - Only Orange variations */
         .custom-marker {
             background: var(--primary-orange);
             border: 3px solid white;
@@ -699,13 +699,13 @@
         }
 
         .marker-laboratoires { background: #EC8C34; }
-        .marker-cms { background: #3498db; }
-        .marker-cmt { background: #e74c3c; }
-        .marker-cliniques { background: #27ae60; }
+        .marker-cms { background: #d67a2a; }
+        .marker-cmt { background: #f5a623; }
+        .marker-cliniques { background: #e67e22; }
 
-        /* Animated Stats Section - Using Orange theme */
+        /* Stats Section - Dark elegant theme instead of bright orange */
         .stats-section {
-            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
             color: white;
             padding: 80px 0;
             position: relative;
@@ -719,17 +719,17 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(236,140,52,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
             opacity: 0.3;
         }
 
         .stat-box-animated {
             text-align: center;
             padding: 30px 20px;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.05);
             border-radius: 16px;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(236, 140, 52, 0.3);
             transition: var(--transition);
             position: relative;
             z-index: 1;
@@ -737,13 +737,14 @@
 
         .stat-box-animated:hover {
             transform: translateY(-10px);
-            background: rgba(255,255,255,0.25);
+            background: rgba(236, 140, 52, 0.1);
+            border-color: var(--primary-orange);
         }
 
         .stat-icon {
             font-size: 2.5rem;
             margin-bottom: 15px;
-            color: white;
+            color: var(--primary-orange);
         }
 
         .stat-number {
@@ -757,101 +758,7 @@
             font-size: 1rem;
             opacity: 0.9;
             font-weight: 500;
-        }
-
-        /* Director Message Section */
-        .director-section {
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-            padding: 100px 0;
-            position: relative;
-        }
-
-        .director-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            overflow: hidden;
-            display: flex;
-            align-items: stretch;
-        }
-
-        .director-image-wrapper {
-            flex: 0 0 40%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .director-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .director-container:hover .director-image {
-            transform: scale(1.05);
-        }
-
-        .director-content {
-            flex: 1;
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .director-badge {
-            display: inline-block;
-            background: var(--primary-orange);
-            color: white;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .director-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .director-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-gray);
-            margin-bottom: 25px;
-        }
-
-        .director-signature {
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 2px solid rgba(236, 140, 52, 0.2);
-        }
-
-        .signature-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary-orange);
-        }
-
-        .signature-title {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-        }
-
-        .quote-icon {
-            font-size: 4rem;
-            color: var(--primary-orange);
-            opacity: 0.2;
-            position: absolute;
-            top: 20px;
-            right: 30px;
+            color: #adb5bd;
         }
 
         /* FAQ Section */
@@ -1009,13 +916,13 @@
         }
 
         .status-open {
-            background: rgba(39, 174, 96, 0.1);
-            color: #27ae60;
+            background: rgba(236, 140, 52, 0.1);
+            color: var(--primary-orange);
         }
 
         .status-closed {
-            background: rgba(231, 76, 60, 0.1);
-            color: #e74c3c;
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
         }
 
         .status-upcoming {
@@ -1025,8 +932,8 @@
 
         /* Mission & Values Section - Using Orange theme */
         .mission-section {
-            background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
-            color: white;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            color: var(--text-dark);
             padding: 100px 0;
             position: relative;
             overflow: hidden;
@@ -1039,14 +946,13 @@
             right: -20%;
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(236, 140, 52, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(236, 140, 52, 0.08) 0%, transparent 70%);
             border-radius: 50%;
         }
 
         .value-card {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: white;
+            border: 1px solid rgba(236, 140, 52, 0.1);
             border-radius: 16px;
             padding: 40px 30px;
             text-align: center;
@@ -1054,31 +960,34 @@
             height: 100%;
             position: relative;
             z-index: 1;
+            box-shadow: var(--shadow);
         }
 
         .value-card:hover {
-            background: rgba(255,255,255,0.1);
+            background: white;
             transform: translateY(-10px);
             border-color: var(--primary-orange);
+            box-shadow: var(--shadow-hover);
         }
 
         .value-icon {
             width: 70px;
             height: 70px;
-            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(135deg, rgba(236, 140, 52, 0.1) 0%, rgba(236, 140, 52, 0.2) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
             font-size: 1.8rem;
-            color: white;
+            color: var(--primary-orange);
         }
 
         .value-title {
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 15px;
+            color: var(--text-dark);
         }
 
         .mission-text {
@@ -1087,7 +996,7 @@
             max-width: 800px;
             margin: 0 auto 50px;
             text-align: center;
-            opacity: 0.9;
+            color: var(--text-gray);
         }
 
         /* Footer */
@@ -1192,7 +1101,7 @@
         }
 
         .success-message {
-            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-dark) 100%);
             color: white;
             padding: 15px 20px;
             border-radius: 8px;
@@ -1242,12 +1151,6 @@
             .brand-logo {
                 height: 45px;
             }
-            .director-container {
-                flex-direction: column;
-            }
-            .director-image-wrapper {
-                flex: 0 0 300px;
-            }
             .stat-number {
                 font-size: 2rem;
             }
@@ -1292,12 +1195,6 @@
             .ticker-item {
                 padding: 0 20px;
                 font-size: 0.9rem;
-            }
-            .director-content {
-                padding: 30px;
-            }
-            .director-title {
-                font-size: 1.5rem;
             }
         }
 
@@ -1595,7 +1492,7 @@
                                 </ul>
                             </div>
                             
-                            <!-- FIXED: Orange download button -->
+                            <!-- Orange download button -->
                             <div class="mt-4">
                                 <a href="/forms/visite-medicale.pdf" class="btn-download" download>
                                     <i class="fas fa-download"></i> Télécharger le formulaire
@@ -1683,7 +1580,7 @@
                                 </ul>
                             </div>
                             
-                            <!-- FIXED: Orange download button -->
+                            <!-- Orange download button -->
                             <div class="mt-4">
                                 <a href="/forms/tiers-payant.pdf" class="btn-download" download>
                                     <i class="fas fa-download"></i> Télécharger le formulaire
@@ -1761,7 +1658,7 @@
                                 </ul>
                             </div>
                             
-                            <!-- FIXED: Orange download button -->
+                            <!-- Orange download button -->
                             <div class="mt-4">
                                 <a href="/forms/medecine-sociale.pdf" class="btn-download" download>
                                     <i class="fas fa-download"></i> Télécharger le formulaire
@@ -1835,7 +1732,7 @@
                                 </ul>
                             </div>
                             
-                            <!-- FIXED: Orange download button -->
+                            <!-- Orange download button -->
                             <div class="mt-4">
                                 <a href="/forms/laboratoire.pdf" class="btn-download" download>
                                     <i class="fas fa-download"></i> Télécharger le formulaire
@@ -1919,7 +1816,7 @@
                                 </ul>
                             </div>
                             
-                            <!-- FIXED: Orange download button -->
+                            <!-- Orange download button -->
                             <div class="mt-4">
                                 <a href="/forms/omra-2026.pdf" class="btn-download" download>
                                     <i class="fas fa-download"></i> Télécharger le formulaire Omra
@@ -2008,7 +1905,7 @@
                                 </ul>
                             </div>
                             
-                            <!-- FIXED: Orange download button -->
+                            <!-- Orange download button -->
                             <div class="mt-4">
                                 <a href="/forms/journee-retraite.pdf" class="btn-download" download>
                                     <i class="fas fa-download"></i> Télécharger le formulaire
@@ -2086,7 +1983,7 @@
                                 </ul>
                             </div>
                             
-                            <!-- FIXED: Orange download button -->
+                            <!-- Orange download button -->
                             <div class="mt-4">
                                 <a href="/forms/circoncision.pdf" class="btn-download" download>
                                     <i class="fas fa-download"></i> Télécharger le formulaire
@@ -2173,7 +2070,7 @@
                                 </ul>
                             </div>
                             
-                            <!-- FIXED: Orange download button -->
+                            <!-- Orange download button -->
                             <div class="mt-4">
                                 <a href="/forms/creche.pdf" class="btn-download" download>
                                     <i class="fas fa-download"></i> Télécharger le formulaire
@@ -2257,7 +2154,7 @@
                                 </ul>
                             </div>
                             
-                            <!-- FIXED: Orange download button -->
+                            <!-- Orange download button -->
                             <div class="mt-4">
                                 <a href="/forms/activites-enfants.pdf" class="btn-download" download>
                                     <i class="fas fa-download"></i> Télécharger le formulaire
@@ -2342,7 +2239,7 @@
                                 </ul>
                             </div>
                             
-                            <!-- FIXED: Orange download button -->
+                            <!-- Orange download button -->
                             <div class="mt-4">
                                 <a href="/forms/sport.pdf" class="btn-download" download>
                                     <i class="fas fa-download"></i> Télécharger le formulaire
@@ -2431,7 +2328,7 @@
                                 </ul>
                             </div>
                             
-                            <!-- FIXED: Orange download button -->
+                            <!-- Orange download button -->
                             <div class="mt-4">
                                 <a href="/forms/colonies.pdf" class="btn-download" download>
                                     <i class="fas fa-download"></i> Télécharger le formulaire
@@ -2685,7 +2582,7 @@
         </div>
     </section>
 
-    <!-- Animated Stats Section - Orange theme -->
+    <!-- Animated Stats Section - Dark elegant theme with orange accents -->
     <section class="stats-section">
         <div class="container">
             <div class="row g-4">
@@ -2723,32 +2620,6 @@
                         </div>
                         <div class="stat-number" data-target="250">0</div>
                         <div class="stat-label">Retraités Omra 2025</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Director Message Section -->
-    <section class="director-section">
-        <div class="container">
-            <div class="director-container" data-aos="fade-up">
-                <div class="director-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=1000&fit=crop" alt="Directeur DAS SONATRACH" class="director-image">
-                </div>
-                <div class="director-content">
-                    <i class="fas fa-quote-left quote-icon"></i>
-                    <span class="director-badge">Mot du Directeur</span>
-                    <h2 class="director-title">Engagés pour votre bien-être au quotidien</h2>
-                    <div class="director-text">
-                        <p>Chers collaborateurs et retraités de SONATRACH,</p>
-                        <p>La Direction des Affaires Sociales s'engage quotidiennement à accompagner le personnel et leurs familles dans tous les aspects de leur vie sociale, médicale et culturelle. Notre priorité reste votre bien-être et la qualité des services rendus.</p>
-                        <p>À travers nos 12 centres médicaux répartis sur 4 régions stratégiques, nous assurons une couverture sanitaire optimale et des services sociaux de proximité. Que ce soit pour la médecine de travail, les colonies de vacances de vos enfants, ou l'organisation de l'Omra pour nos retraités, nous mettons tout en œuvre pour répondre à vos attentes.</p>
-                        <p>Ensemble, continuons à bâtir un avenir solidaire et prospère.</p>
-                    </div>
-                    <div class="director-signature">
-                        <div class="signature-name">M. Ahmed Benali</div>
-                        <div class="signature-title">Directeur des Affaires Sociales et Loisirs</div>
                     </div>
                 </div>
             </div>
@@ -2915,7 +2786,7 @@
                     </button>
                     <div class="faq-answer">
                         <div class="faq-content">
-                            Pour l'Omra, vous devez fournir : CIN valide, extrait de naissance légalisé, 4 photos d'identité fond blanc, certificat médical d'aptitude au voyage, attestation de retraite SONATRACH et passeport biométrique valide (minimum 6 mois de validité). Les inscriptions se font exclusivement en ligne ou au siège de la DAS.
+                            Pour l'Omra, vous devez fournir : CIN valide, extrait de naissance légalisé, 4 photos d'identité fond blanc, certificat médical d'aptitude au voyage, attestation de retraite SONATRACH et passeport biométrique valide (minimum 6 mois de validité). Les inscriptions se font exclusivement en ligne or au siège de la DAS.
                         </div>
                     </div>
                 </div>
@@ -2971,11 +2842,11 @@
         </div>
     </section>
 
-    <!-- Mission & Values Section -->
+    <!-- Mission & Values Section - Light theme with orange accents -->
     <section class="mission-section">
         <div class="container">
             <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="text-white mb-4">Notre Mission & Nos Valeurs</h2>
+                <h2 class="mb-4">Notre Mission & Nos Valeurs</h2>
                 <p class="mission-text">
                     La Direction des Affaires Sociales et Loisirs s'engage à fournir des services sociaux, médicaux et culturels d'excellence au personnel SONATRACH et à leurs familles, contribuant ainsi à leur épanouissement et à leur qualité de vie.
                 </p>
@@ -3025,9 +2896,9 @@
             
             <div class="row mt-5">
                 <div class="col-12 text-center" data-aos="fade-up">
-                    <div class="p-4" style="background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
-                        <h4 class="text-white mb-3">Notre Engagement</h4>
-                        <p class="mb-0" style="opacity: 0.9;">
+                    <div class="p-4" style="background: white; border-radius: 12px; border: 1px solid rgba(236, 140, 52, 0.2); box-shadow: var(--shadow);">
+                        <h4 class="mb-3" style="color: var(--primary-orange);">Notre Engagement</h4>
+                        <p class="mb-0" style="color: var(--text-gray);">
                             Nous nous engageons à moderniser continuellement nos infrastructures, à former nos équipes aux meilleures pratiques et à innover dans nos services pour répondre aux évolutions des besoins de la population SONATRACH. Votre santé et votre bien-être sont notre priorité absolue.
                         </p>
                     </div>
@@ -3137,7 +3008,6 @@
             document.getElementById('regions').style.display = 'none';
             document.getElementById('cartographie').style.display = 'none';
             document.querySelector('.stats-section').style.display = 'none';
-            document.querySelector('.director-section').style.display = 'none';
             document.querySelector('.events-section').style.display = 'none';
             document.querySelector('.faq-section').style.display = 'none';
             document.querySelector('.mission-section').style.display = 'none';
@@ -3186,7 +3056,6 @@
             document.getElementById('regions').style.display = 'block';
             document.getElementById('cartographie').style.display = 'block';
             document.querySelector('.stats-section').style.display = 'block';
-            document.querySelector('.director-section').style.display = 'block';
             document.querySelector('.events-section').style.display = 'block';
             document.querySelector('.faq-section').style.display = 'block';
             document.querySelector('.mission-section').style.display = 'block';
@@ -3226,9 +3095,9 @@
                 maxZoom: 19
             }).addTo(map);
 
-            // Define locations data
+            // Define locations data - Only orange variations
             const locations = [
-                // Laboratoires (Orange)
+                // Laboratoires (Primary Orange)
                 { lat: 36.7538, lng: 3.0588, name: "Alger - Laboratoire Central", type: "laboratoires" },
                 { lat: 35.6987, lng: -0.6349, name: "Oran - Laboratoire", type: "laboratoires" },
                 { lat: 36.3650, lng: 6.6147, name: "Constantine - Laboratoire", type: "laboratoires" },
@@ -3236,7 +3105,7 @@
                 { lat: 27.8739, lng: -0.2890, name: "Adrar - Laboratoire", type: "laboratoires" },
                 { lat: 28.0500, lng: 9.5500, name: "In Amenas - Laboratoire", type: "laboratoires" },
                 
-                // CMS (Blue)
+                // CMS (Darker Orange)
                 { lat: 36.7631, lng: 3.0506, name: "Alger - CMS Central", type: "cms" },
                 { lat: 35.7047, lng: -0.6453, name: "Oran - CMS", type: "cms" },
                 { lat: 36.3750, lng: 6.6050, name: "Constantine - CMS", type: "cms" },
@@ -3246,14 +3115,14 @@
                 { lat: 32.4833, lng: 3.6667, name: "Ghardaïa - CMS", type: "cms" },
                 { lat: 31.9500, lng: 5.3167, name: "Ouargla - CMS", type: "cms" },
                 
-                // CMT (Red)
+                // CMT (Lighter Orange)
                 { lat: 36.7438, lng: 3.0688, name: "Alger - CMT Principal", type: "cmt" },
                 { lat: 31.6500, lng: 6.0667, name: "Hassi Messaoud - CMT", type: "cmt" },
                 { lat: 32.9333, lng: 3.3000, name: "Hassi R'Mel - CMT", type: "cmt" },
                 { lat: 35.8500, lng: -0.3167, name: "Arzew - CMT", type: "cmt" },
                 { lat: 28.1000, lng: 9.5000, name: "In Amenas - CMT", type: "cmt" },
                 
-                // Cliniques (Green)
+                // Cliniques (Medium Orange)
                 { lat: 36.7738, lng: 3.0488, name: "Alger - Clinique du Val", type: "cliniques" },
                 { lat: 35.7087, lng: -0.6249, name: "Oran - Clinique El Azhar", type: "cliniques" },
                 { lat: 36.3850, lng: 6.6047, name: "Constantine - Clinique", type: "cliniques" },
@@ -3263,13 +3132,13 @@
                 { lat: 32.9433, lng: 3.3100, name: "Hassi R'Mel - Clinique", type: "cliniques" }
             ];
 
-            // Create custom icon function
+            // Create custom icon function - Only orange variations
             function createCustomIcon(type) {
                 const colors = {
                     laboratoires: '#EC8C34',
-                    cms: '#3498db',
-                    cmt: '#e74c3c',
-                    cliniques: '#27ae60'
+                    cms: '#d67a2a',
+                    cmt: '#f5a623',
+                    cliniques: '#e67e22'
                 };
                 
                 const labels = {
@@ -3499,3 +3368,4 @@
     </script>
 </body>
 </html>
+
