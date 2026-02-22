@@ -14,6 +14,9 @@
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     
@@ -178,7 +181,7 @@
             padding-left: 20px;
         }
 
-        /* APPELER Button */
+        /* APPELER Button - NOW HOVERABLE */
         .btn-call {
             background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-dark) 100%);
             color: white !important;
@@ -193,16 +196,17 @@
             transition: all 0.3s ease;
             border: none;
             text-decoration: none;
-            cursor: default;
+            cursor: pointer;
         }
 
         .btn-call:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(236, 140, 52, 0.4);
             color: white !important;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-orange) 100%);
         }
 
-        /* Hero Carousel */
+        /* Hero Carousel - ORIGINAL STYLING PRESERVED */
         .hero-section {
             position: relative;
             height: 600px;
@@ -406,6 +410,102 @@
             padding: 25px;
         }
 
+        /* Service Detail Enhancements */
+        .service-meta {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(236, 140, 52, 0.1);
+            padding: 10px 16px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .meta-item i {
+            color: var(--primary-orange);
+        }
+
+        /* FIXED: Download button now uses SONATRACH ORANGE instead of green */
+        .btn-download {
+            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(236, 140, 52, 0.3);
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(236, 140, 52, 0.4);
+            color: white;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-orange) 100%);
+        }
+
+        /* File Upload Zone */
+        .upload-zone {
+            border: 2px dashed var(--primary-orange);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            background: rgba(236, 140, 52, 0.02);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .upload-zone:hover {
+            background: rgba(236, 140, 52, 0.05);
+            border-color: var(--primary-dark);
+        }
+
+        .upload-zone.dragover {
+            background: rgba(236, 140, 52, 0.1);
+            border-color: var(--primary-orange);
+        }
+
+        .upload-zone i {
+            font-size: 2.5rem;
+            color: var(--primary-orange);
+            margin-bottom: 15px;
+        }
+
+        .file-list {
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .file-item button {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+        }
+
         /* Dossier à fournir */
         .dossier-section {
             background: #f8f9fa;
@@ -603,26 +703,391 @@
         .marker-cmt { background: #e74c3c; }
         .marker-cliniques { background: #27ae60; }
 
-        /* Stats */
-        .stat-box {
-            text-align: center;
-            padding: 20px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+        /* Animated Stats Section - Using Orange theme */
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
         }
 
-        .stat-box:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .stat-box-animated {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-box-animated:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.25);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: white;
         }
 
         .stat-number {
-            font-size: 2rem;
+            font-size: 3rem;
             font-weight: 800;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        /* Director Message Section */
+        .director-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .director-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .director-image-wrapper {
+            flex: 0 0 40%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .director-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .director-container:hover .director-image {
+            transform: scale(1.05);
+        }
+
+        .director-content {
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .director-badge {
+            display: inline-block;
+            background: var(--primary-orange);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .director-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .director-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-gray);
+            margin-bottom: 25px;
+        }
+
+        .director-signature {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid rgba(236, 140, 52, 0.2);
+        }
+
+        .signature-name {
+            font-size: 1.2rem;
+            font-weight: 700;
             color: var(--primary-orange);
-            margin-bottom: 5px;
+        }
+
+        .signature-title {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .quote-icon {
+            font-size: 4rem;
+            color: var(--primary-orange);
+            opacity: 0.2;
+            position: absolute;
+            top: 20px;
+            right: 30px;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: var(--bg-light);
+            padding: 80px 0;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: var(--transition);
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .faq-question:hover {
+            color: var(--primary-orange);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: var(--primary-orange);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-content {
+            padding: 0 25px 20px;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        /* Events Calendar Section */
+        .events-section {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary-orange);
+            transition: var(--transition);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, transparent 50%, rgba(236, 140, 52, 0.05) 50%);
+            border-radius: 0 0 0 100%;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .event-date {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--primary-orange);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .event-day {
+            font-size: 1.5rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .event-month {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .event-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .event-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+
+        .event-meta i {
+            color: var(--primary-orange);
+        }
+
+        .event-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .status-open {
+            background: rgba(39, 174, 96, 0.1);
+            color: #27ae60;
+        }
+
+        .status-closed {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+        }
+
+        .status-upcoming {
+            background: rgba(236, 140, 52, 0.1);
+            color: var(--primary-orange);
+        }
+
+        /* Mission & Values Section - Using Orange theme */
+        .mission-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(236, 140, 52, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .value-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition);
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .value-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-10px);
+            border-color: var(--primary-orange);
+        }
+
+        .value-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .value-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .mission-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 50px;
+            text-align: center;
+            opacity: 0.9;
         }
 
         /* Footer */
@@ -709,20 +1174,37 @@
             font-size: 0.9rem;
         }
 
-        /* Animation classes */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+        /* Text utilities */
         .text-orange {
             color: var(--primary-orange) !important;
+        }
+
+        /* Success message animation */
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            animation: slideIn 0.3s ease;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .success-message.show {
+            display: flex;
         }
 
         /* Mobile Responsive Improvements */
@@ -759,6 +1241,15 @@
             }
             .brand-logo {
                 height: 45px;
+            }
+            .director-container {
+                flex-direction: column;
+            }
+            .director-image-wrapper {
+                flex: 0 0 300px;
+            }
+            .stat-number {
+                font-size: 2rem;
             }
         }
 
@@ -801,6 +1292,12 @@
             .ticker-item {
                 padding: 0 20px;
                 font-size: 0.9rem;
+            }
+            .director-content {
+                padding: 30px;
+            }
+            .director-title {
+                font-size: 1.5rem;
             }
         }
 
@@ -931,7 +1428,8 @@
                         </li>
                     </ul>
                     
-                    <a href="#" class="btn btn-call">
+                    <!-- FIXED: APPELER button is now hoverable with proper cursor -->
+                    <a href="tel:+21323XXXXXX" class="btn btn-call">
                         <i class="fas fa-phone-alt"></i> APPELER
                     </a>
                 </div>
@@ -939,7 +1437,7 @@
         </nav>
     </header>
 
-    <!-- Hero Carousel -->
+    <!-- Hero Carousel - ORIGINAL CODE PRESERVED EXACTLY AS REQUESTED -->
     <section class="hero-section" id="home">
         <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -1032,8 +1530,19 @@
                 <div class="row g-4">
                     <div class="col-lg-8">
                         <div class="card-custom p-4">
+                            <div class="service-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Délai: 3 jours ouvrés</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-file-medical"></i>
+                                    <span>Visite obligatoire</span>
+                                </div>
+                            </div>
+                            
                             <h4 class="mb-4">Demande de Visite Médicale</h4>
-                            <form>
+                            <form class="service-form">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Matricule SONATRACH" required>
@@ -1054,7 +1563,26 @@
                                         <input type="date" class="form-control">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Soumettre la demande</button>
+                                
+                                <!-- Upload Zone -->
+                                <div class="mt-4">
+                                    <h6 class="mb-3"><i class="fas fa-cloud-upload-alt text-orange me-2"></i>Joindre les documents</h6>
+                                    <div class="upload-zone" onclick="document.getElementById('file-mt').click()">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p class="mb-2">Cliquez ou glissez vos fichiers ici</p>
+                                        <small class="text-muted">CIN, Photo d'identité, Fiche médicale précédente</small>
+                                        <input type="file" id="file-mt" multiple class="d-none" onchange="handleFileSelect(this, 'list-mt')">
+                                    </div>
+                                    <div class="file-list" id="list-mt"></div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">
+                                    <i class="fas fa-paper-plane me-2"></i>Soumettre la demande
+                                </button>
+                                <div class="success-message">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Documents envoyés avec succès !</span>
+                                </div>
                             </form>
                             
                             <div class="dossier-section mt-4">
@@ -1065,6 +1593,13 @@
                                     <li><i class="fas fa-check-circle"></i> 1 photo d'identité récente</li>
                                     <li><i class="fas fa-check-circle"></i> Fiche médicale précédente (si disponible)</li>
                                 </ul>
+                            </div>
+                            
+                            <!-- FIXED: Orange download button -->
+                            <div class="mt-4">
+                                <a href="/forms/visite-medicale.pdf" class="btn-download" download>
+                                    <i class="fas fa-download"></i> Télécharger le formulaire
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -1091,8 +1626,19 @@
                 <div class="row g-4">
                     <div class="col-lg-8">
                         <div class="card-custom p-4">
+                            <div class="service-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Délai: 48 heures</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Prise en charge directe</span>
+                                </div>
+                            </div>
+                            
                             <h4 class="mb-4">Demande de Prise en Charge Tiers Payant</h4>
-                            <form>
+                            <form class="service-form">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Matricule" required>
@@ -1104,7 +1650,26 @@
                                         <input type="text" class="form-control" placeholder="Établissement médical concerné">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Envoyer la demande</button>
+                                
+                                <!-- Upload Zone -->
+                                <div class="mt-4">
+                                    <h6 class="mb-3"><i class="fas fa-cloud-upload-alt text-orange me-2"></i>Joindre les documents</h6>
+                                    <div class="upload-zone" onclick="document.getElementById('file-tp').click()">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p class="mb-2">Cliquez ou glissez vos fichiers ici</p>
+                                        <small class="text-muted">Extrait de naissance, CIN, Photo, Attestation de salaire, Certificat médical</small>
+                                        <input type="file" id="file-tp" multiple class="d-none" onchange="handleFileSelect(this, 'list-tp')">
+                                    </div>
+                                    <div class="file-list" id="list-tp"></div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">
+                                    <i class="fas fa-paper-plane me-2"></i>Envoyer la demande
+                                </button>
+                                <div class="success-message">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Documents envoyés avec succès !</span>
+                                </div>
                             </form>
                             
                             <div class="dossier-section mt-4">
@@ -1116,6 +1681,13 @@
                                     <li><i class="fas fa-check-circle"></i> Attestation de salaire ou pension</li>
                                     <li><i class="fas fa-check-circle"></i> Certificat médical de l'établissement</li>
                                 </ul>
+                            </div>
+                            
+                            <!-- FIXED: Orange download button -->
+                            <div class="mt-4">
+                                <a href="/forms/tiers-payant.pdf" class="btn-download" download>
+                                    <i class="fas fa-download"></i> Télécharger le formulaire
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -1131,8 +1703,19 @@
                 <div class="row g-4">
                     <div class="col-lg-8">
                         <div class="card-custom p-4">
+                            <div class="service-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Délai: 5 jours ouvrés</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>Familles éligibles</span>
+                                </div>
+                            </div>
+                            
                             <h4 class="mb-4">Demande de Prise en Charge Familiale</h4>
-                            <form>
+                            <form class="service-form">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Nom du travailleur" required>
@@ -1147,7 +1730,24 @@
                                         <input type="text" class="form-control" placeholder="Lien de parenté" required>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Envoyer</button>
+                                
+                                <div class="mt-4">
+                                    <h6 class="mb-3"><i class="fas fa-cloud-upload-alt text-orange me-2"></i>Joindre les documents</h6>
+                                    <div class="upload-zone" onclick="document.getElementById('file-ms').click()">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p class="mb-2">Cliquez ou glissez vos fichiers ici</p>
+                                        <input type="file" id="file-ms" multiple class="d-none" onchange="handleFileSelect(this, 'list-ms')">
+                                    </div>
+                                    <div class="file-list" id="list-ms"></div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">
+                                    <i class="fas fa-paper-plane me-2"></i>Envoyer
+                                </button>
+                                <div class="success-message">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Documents envoyés avec succès !</span>
+                                </div>
                             </form>
                             
                             <div class="dossier-section mt-4">
@@ -1159,6 +1759,13 @@
                                     <li><i class="fas fa-check-circle"></i> Certificat de vie et de coutume (pour conjoint)</li>
                                     <li><i class="fas fa-check-circle"></i> 1 photo d'identité du bénéficiaire</li>
                                 </ul>
+                            </div>
+                            
+                            <!-- FIXED: Orange download button -->
+                            <div class="mt-4">
+                                <a href="/forms/medecine-sociale.pdf" class="btn-download" download>
+                                    <i class="fas fa-download"></i> Télécharger le formulaire
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -1174,8 +1781,19 @@
                 <div class="row g-4">
                     <div class="col-lg-8">
                         <div class="card-custom p-4">
+                            <div class="service-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Résultats: 24-48h</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-vial"></i>
+                                    <span>15 laboratoires</span>
+                                </div>
+                            </div>
+                            
                             <h4 class="mb-4">Demande d'Analyse</h4>
-                            <form>
+                            <form class="service-form">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Matricule" required>
@@ -1187,7 +1805,24 @@
                                         <textarea class="form-control" rows="3" placeholder="Type d'analyses demandées"></textarea>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Soumettre</button>
+                                
+                                <div class="mt-4">
+                                    <h6 class="mb-3"><i class="fas fa-cloud-upload-alt text-orange me-2"></i>Joindre les documents</h6>
+                                    <div class="upload-zone" onclick="document.getElementById('file-lab').click()">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p class="mb-2">Cliquez ou glissez vos fichiers ici</p>
+                                        <input type="file" id="file-lab" multiple class="d-none" onchange="handleFileSelect(this, 'list-lab')">
+                                    </div>
+                                    <div class="file-list" id="list-lab"></div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">
+                                    <i class="fas fa-paper-plane me-2"></i>Soumettre
+                                </button>
+                                <div class="success-message">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Documents envoyés avec succès !</span>
+                                </div>
                             </form>
                             
                             <div class="dossier-section mt-4">
@@ -1198,6 +1833,13 @@
                                     <li><i class="fas fa-check-circle"></i> Carte de soins SONATRACH</li>
                                     <li><i class="fas fa-check-circle"></i> 1 photo d'identité (pour nouveau dossier)</li>
                                 </ul>
+                            </div>
+                            
+                            <!-- FIXED: Orange download button -->
+                            <div class="mt-4">
+                                <a href="/forms/laboratoire.pdf" class="btn-download" download>
+                                    <i class="fas fa-download"></i> Télécharger le formulaire
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -1213,8 +1855,23 @@
                 <div class="row g-4">
                     <div class="col-lg-8">
                         <div class="card-custom p-4">
+                            <div class="service-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Délai: 15 jours</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>200 places</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-plane"></i>
+                                    <span>Départ Mars 2026</span>
+                                </div>
+                            </div>
+                            
                             <h4 class="mb-4">Inscription Omra 2026</h4>
-                            <form>
+                            <form class="service-form">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Matricule retraité" required>
@@ -1229,7 +1886,25 @@
                                         <input type="tel" class="form-control" placeholder="Téléphone">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">S'inscrire</button>
+                                
+                                <div class="mt-4">
+                                    <h6 class="mb-3"><i class="fas fa-cloud-upload-alt text-orange me-2"></i>Joindre les documents</h6>
+                                    <div class="upload-zone" onclick="document.getElementById('file-omra').click()">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p class="mb-2">Cliquez ou glissez vos fichiers ici</p>
+                                        <small class="text-muted">CIN, Extrait de naissance, Photos, Certificat médical, Attestation retraite, Passeport</small>
+                                        <input type="file" id="file-omra" multiple class="d-none" onchange="handleFileSelect(this, 'list-omra')">
+                                    </div>
+                                    <div class="file-list" id="list-omra"></div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">
+                                    <i class="fas fa-paper-plane me-2"></i>S'inscrire
+                                </button>
+                                <div class="success-message">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Documents envoyés avec succès !</span>
+                                </div>
                             </form>
                             
                             <div class="dossier-section mt-4">
@@ -1243,6 +1918,13 @@
                                     <li><i class="fas fa-check-circle"></i> Passeport biométrique valide (min 6 mois)</li>
                                 </ul>
                             </div>
+                            
+                            <!-- FIXED: Orange download button -->
+                            <div class="mt-4">
+                                <a href="/forms/omra-2026.pdf" class="btn-download" download>
+                                    <i class="fas fa-download"></i> Télécharger le formulaire Omra
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -1251,6 +1933,10 @@
                             <p><i class="fas fa-calendar me-2"></i><strong>Départ:</strong> Mars 2026</p>
                             <p><i class="fas fa-users me-2"></i><strong>Places:</strong> 200 retraités</p>
                             <p><i class="fas fa-plane me-2"></i><strong>Vol:</strong> Charter direct</p>
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                Inscriptions limitées. Premier arrivé, premier servi.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1265,8 +1951,19 @@
                 <div class="row g-4">
                     <div class="col-lg-8">
                         <div class="card-custom p-4">
+                            <div class="service-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Délai: 7 jours</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-award"></i>
+                                    <span>Cérémonie annuelle</span>
+                                </div>
+                            </div>
+                            
                             <h4 class="mb-4">Inscription à la Journée de Retraite 2026</h4>
-                            <form>
+                            <form class="service-form">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Matricule" required>
@@ -1281,7 +1978,24 @@
                                         <input type="number" class="form-control" placeholder="Nombre d'accompagnants">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Confirmer participation</button>
+                                
+                                <div class="mt-4">
+                                    <h6 class="mb-3"><i class="fas fa-cloud-upload-alt text-orange me-2"></i>Joindre les documents</h6>
+                                    <div class="upload-zone" onclick="document.getElementById('file-ret').click()">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p class="mb-2">Cliquez ou glissez vos fichiers ici</p>
+                                        <input type="file" id="file-ret" multiple class="d-none" onchange="handleFileSelect(this, 'list-ret')">
+                                    </div>
+                                    <div class="file-list" id="list-ret"></div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">
+                                    <i class="fas fa-paper-plane me-2"></i>Confirmer participation
+                                </button>
+                                <div class="success-message">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Documents envoyés avec succès !</span>
+                                </div>
                             </form>
                             
                             <div class="dossier-section mt-4">
@@ -1292,6 +2006,13 @@
                                     <li><i class="fas fa-check-circle"></i> 1 photo d'identité</li>
                                     <li><i class="fas fa-check-circle"></i> Liste des accompagnants (noms et CIN)</li>
                                 </ul>
+                            </div>
+                            
+                            <!-- FIXED: Orange download button -->
+                            <div class="mt-4">
+                                <a href="/forms/journee-retraite.pdf" class="btn-download" download>
+                                    <i class="fas fa-download"></i> Télécharger le formulaire
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -1307,8 +2028,19 @@
                 <div class="row g-4">
                     <div class="col-lg-8">
                         <div class="card-custom p-4">
+                            <div class="service-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Inscription jusqu'au 15 Juin</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar-check"></i>
+                                    <span>Juillet 2026</span>
+                                </div>
+                            </div>
+                            
                             <h4 class="mb-4">Inscription Journée Circoncision 2026</h4>
-                            <form>
+                            <form class="service-form">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Matricule du père" required>
@@ -1323,7 +2055,24 @@
                                         <input type="number" class="form-control" placeholder="Âge de l'enfant" required>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Inscrire mon enfant</button>
+                                
+                                <div class="mt-4">
+                                    <h6 class="mb-3"><i class="fas fa-cloud-upload-alt text-orange me-2"></i>Joindre les documents</h6>
+                                    <div class="upload-zone" onclick="document.getElementById('file-cir').click()">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p class="mb-2">Cliquez ou glissez vos fichiers ici</p>
+                                        <input type="file" id="file-cir" multiple class="d-none" onchange="handleFileSelect(this, 'list-cir')">
+                                    </div>
+                                    <div class="file-list" id="list-cir"></div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">
+                                    <i class="fas fa-paper-plane me-2"></i>Inscrire mon enfant
+                                </button>
+                                <div class="success-message">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Documents envoyés avec succès !</span>
+                                </div>
                             </form>
                             
                             <div class="dossier-section mt-4">
@@ -1335,6 +2084,13 @@
                                     <li><i class="fas fa-check-circle"></i> Certificat médical de l'enfant</li>
                                     <li><i class="fas fa-check-circle"></i> Attestation de travail SONATRACH du père</li>
                                 </ul>
+                            </div>
+                            
+                            <!-- FIXED: Orange download button -->
+                            <div class="mt-4">
+                                <a href="/forms/circoncision.pdf" class="btn-download" download>
+                                    <i class="fas fa-download"></i> Télécharger le formulaire
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -1358,8 +2114,19 @@
                 <div class="row g-4">
                     <div class="col-lg-8">
                         <div class="card-custom p-4">
+                            <div class="service-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Délai: 10 jours</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-baby"></i>
+                                    <span>6 mois - 6 ans</span>
+                                </div>
+                            </div>
+                            
                             <h4 class="mb-4">Demande d'Inscription en Crèche</h4>
-                            <form>
+                            <form class="service-form">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Matricule du parent" required>
@@ -1374,7 +2141,24 @@
                                         <input type="date" class="form-control" placeholder="Date de naissance">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Soumettre la demande</button>
+                                
+                                <div class="mt-4">
+                                    <h6 class="mb-3"><i class="fas fa-cloud-upload-alt text-orange me-2"></i>Joindre les documents</h6>
+                                    <div class="upload-zone" onclick="document.getElementById('file-cre').click()">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p class="mb-2">Cliquez ou glissez vos fichiers ici</p>
+                                        <input type="file" id="file-cre" multiple class="d-none" onchange="handleFileSelect(this, 'list-cre')">
+                                    </div>
+                                    <div class="file-list" id="list-cre"></div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">
+                                    <i class="fas fa-paper-plane me-2"></i>Soumettre la demande
+                                </button>
+                                <div class="success-message">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Documents envoyés avec succès !</span>
+                                </div>
                             </form>
                             
                             <div class="dossier-section mt-4">
@@ -1387,6 +2171,13 @@
                                     <li><i class="fas fa-check-circle"></i> 2 photos d'identité de l'enfant</li>
                                     <li><i class="fas fa-check-circle"></i> Attestation de travail SONATRACH</li>
                                 </ul>
+                            </div>
+                            
+                            <!-- FIXED: Orange download button -->
+                            <div class="mt-4">
+                                <a href="/forms/creche.pdf" class="btn-download" download>
+                                    <i class="fas fa-download"></i> Télécharger le formulaire
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -1402,8 +2193,19 @@
                 <div class="row g-4">
                     <div class="col-lg-8">
                         <div class="card-custom p-4">
+                            <div class="service-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Inscription continue</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-paint-brush"></i>
+                                    <span>Multiple activités</span>
+                                </div>
+                            </div>
+                            
                             <h4 class="mb-4">Inscription aux Activités</h4>
-                            <form>
+                            <form class="service-form">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Nom du parent" required>
@@ -1425,7 +2227,24 @@
                                         </select>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Inscrire</button>
+                                
+                                <div class="mt-4">
+                                    <h6 class="mb-3"><i class="fas fa-cloud-upload-alt text-orange me-2"></i>Joindre les documents</h6>
+                                    <div class="upload-zone" onclick="document.getElementById('file-act').click()">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p class="mb-2">Cliquez ou glissez vos fichiers ici</p>
+                                        <input type="file" id="file-act" multiple class="d-none" onchange="handleFileSelect(this, 'list-act')">
+                                    </div>
+                                    <div class="file-list" id="list-act"></div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">
+                                    <i class="fas fa-paper-plane me-2"></i>Inscrire
+                                </button>
+                                <div class="success-message">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Documents envoyés avec succès !</span>
+                                </div>
                             </form>
                             
                             <div class="dossier-section mt-4">
@@ -1436,6 +2255,13 @@
                                     <li><i class="fas fa-check-circle"></i> Certificat médical</li>
                                     <li><i class="fas fa-check-circle"></i> 1 photo d'identité de l'enfant</li>
                                 </ul>
+                            </div>
+                            
+                            <!-- FIXED: Orange download button -->
+                            <div class="mt-4">
+                                <a href="/forms/activites-enfants.pdf" class="btn-download" download>
+                                    <i class="fas fa-download"></i> Télécharger le formulaire
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -1451,8 +2277,19 @@
                 <div class="row g-4">
                     <div class="col-lg-8">
                         <div class="card-custom p-4">
+                            <div class="service-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Délai: 15 jours avant compétition</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-medal"></i>
+                                    <span>Inter-régional</span>
+                                </div>
+                            </div>
+                            
                             <h4 class="mb-4">Inscription aux Championnats</h4>
-                            <form>
+                            <form class="service-form">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Matricule" required>
@@ -1474,7 +2311,24 @@
                                         <input type="text" class="form-control" placeholder="Région">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">S'inscrire</button>
+                                
+                                <div class="mt-4">
+                                    <h6 class="mb-3"><i class="fas fa-cloud-upload-alt text-orange me-2"></i>Joindre les documents</h6>
+                                    <div class="upload-zone" onclick="document.getElementById('file-spo').click()">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p class="mb-2">Cliquez ou glissez vos fichiers ici</p>
+                                        <input type="file" id="file-spo" multiple class="d-none" onchange="handleFileSelect(this, 'list-spo')">
+                                    </div>
+                                    <div class="file-list" id="list-spo"></div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">
+                                    <i class="fas fa-paper-plane me-2"></i>S'inscrire
+                                </button>
+                                <div class="success-message">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Documents envoyés avec succès !</span>
+                                </div>
                             </form>
                             
                             <div class="dossier-section mt-4">
@@ -1486,6 +2340,13 @@
                                     <li><i class="fas fa-check-circle"></i> 1 photo d'identité</li>
                                     <li><i class="fas fa-check-circle"></i> Fiche technique du joueur</li>
                                 </ul>
+                            </div>
+                            
+                            <!-- FIXED: Orange download button -->
+                            <div class="mt-4">
+                                <a href="/forms/sport.pdf" class="btn-download" download>
+                                    <i class="fas fa-download"></i> Télécharger le formulaire
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -1501,8 +2362,19 @@
                 <div class="row g-4">
                     <div class="col-lg-8">
                         <div class="card-custom p-4">
+                            <div class="service-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Délai: 1 mois avant départ</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-sun"></i>
+                                    <span>Juillet-Août 2026</span>
+                                </div>
+                            </div>
+                            
                             <h4 class="mb-4">Inscription Colonies de Vacances 2026</h4>
-                            <form>
+                            <form class="service-form">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Matricule du parent" required>
@@ -1526,7 +2398,24 @@
                                         </select>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">Inscrire</button>
+                                
+                                <div class="mt-4">
+                                    <h6 class="mb-3"><i class="fas fa-cloud-upload-alt text-orange me-2"></i>Joindre les documents</h6>
+                                    <div class="upload-zone" onclick="document.getElementById('file-col').click()">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p class="mb-2">Cliquez ou glissez vos fichiers ici</p>
+                                        <input type="file" id="file-col" multiple class="d-none" onchange="handleFileSelect(this, 'list-col')">
+                                    </div>
+                                    <div class="file-list" id="list-col"></div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary mt-3" style="background: var(--primary-orange); border: none;">
+                                    <i class="fas fa-paper-plane me-2"></i>Inscrire
+                                </button>
+                                <div class="success-message">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Documents envoyés avec succès !</span>
+                                </div>
                             </form>
                             
                             <div class="dossier-section mt-4">
@@ -1540,6 +2429,13 @@
                                     <li><i class="fas fa-check-circle"></i> Attestation de travail SONATRACH</li>
                                     <li><i class="fas fa-check-circle"></i> Autorisation parentale signée</li>
                                 </ul>
+                            </div>
+                            
+                            <!-- FIXED: Orange download button -->
+                            <div class="mt-4">
+                                <a href="/forms/colonies.pdf" class="btn-download" download>
+                                    <i class="fas fa-download"></i> Télécharger le formulaire
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -1563,13 +2459,13 @@
     <!-- Quick Services -->
     <section id="accueil-services" class="section-padding bg-white">
         <div class="container">
-            <div class="section-header fade-in">
+            <div class="section-header" data-aos="fade-up">
                 <h2>Nos Services</h2>
                 <p>Des solutions complètes pour le bien-être des travailleurs et leurs familles</p>
             </div>
             
             <div class="row g-4">
-                <div class="col-lg-3 col-md-6 fade-in">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="0">
                     <div class="service-icon-box" onclick="showService('sante')">
                         <div class="service-icon">
                             <i class="fas fa-heartbeat"></i>
@@ -1579,7 +2475,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-3 col-md-6 fade-in" style="animation-delay: 0.1s;">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="service-icon-box" onclick="showService('aps')">
                         <div class="service-icon">
                             <i class="fas fa-hands-helping"></i>
@@ -1589,7 +2485,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-3 col-md-6 fade-in" style="animation-delay: 0.2s;">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="service-icon-box" onclick="showService('enfances')">
                         <div class="service-icon">
                             <i class="fas fa-child"></i>
@@ -1599,7 +2495,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-3 col-md-6 fade-in" style="animation-delay: 0.3s;">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="service-icon-box" onclick="showService('spl')">
                         <div class="service-icon">
                             <i class="fas fa-running"></i>
@@ -1615,13 +2511,13 @@
     <!-- Regions Section -->
     <section id="regions" class="section-padding">
         <div class="container">
-            <div class="section-header fade-in">
+            <div class="section-header" data-aos="fade-up">
                 <h2>Nos Régions</h2>
                 <p>Présence dans 10 régions stratégiques à travers l'Algérie</p>
             </div>
             
             <div class="row g-4">
-                <div class="col-lg-3 col-md-4 col-sm-6 fade-in">
+                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="0">
                     <div class="region-card" onclick="showRegionDetail('alger')">
                         <img src="https://www.shutterstock.com/image-photo/landscape-algiers-city-balcony-el-600nw-1488379289.jpg" alt="Alger">
                         <div class="region-overlay">
@@ -1636,7 +2532,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.05s;">
+                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="50">
                     <div class="region-card" onclick="showRegionDetail('arzew')">
                         <img src="https://www.shutterstock.com/image-photo/aerial-view-arzew-oran-algeria-260nw-2696992561.jpg" alt="Arzew">
                         <div class="region-overlay">
@@ -1650,7 +2546,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.1s;">
+                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="region-card" onclick="showRegionDetail('adrar')">
                         <img src="https://l450v.alamy.com/450v/w68hjc/adrar-city-in-desert-sahara-algeria-w68hjc.jpg" alt="Adrar">
                         <div class="region-overlay">
@@ -1664,7 +2560,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.15s;">
+                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="150">
                     <div class="region-card" onclick="showRegionDetail('bejaia')">
                         <img src="https://www.shutterstock.com/image-photo/bejaia-city-coast-algeria-600nw-2422296857.jpg" alt="Béjaïa">
                         <div class="region-overlay">
@@ -1678,7 +2574,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.2s;">
+                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="region-card" onclick="showRegionDetail('skikda')">
                         <img src="https://www.shutterstock.com/image-photo/port-panorama-day-time-skikda-260nw-1314090872.jpg" alt="Skikda">
                         <div class="region-overlay">
@@ -1692,7 +2588,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.25s;">
+                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="250">
                     <div class="region-card" onclick="showRegionDetail('hassi-messaoud')">
                         <img src="https://ejatlas.org/media/conflict/hassi-messaoud-oil-field/n-AZEAZEZAE-large570.jpg" alt="Hassi Messaoud">
                         <div class="region-overlay">
@@ -1707,7 +2603,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.3s;">
+                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="region-card" onclick="showRegionDetail('hassi-rmel')">
                         <img src="https://dejongenergyservices.com/wp-content/uploads/2022/09/Hassi-RMel-1024x682-1-1920x655.jpeg" alt="Hassi R'Mel">
                         <div class="region-overlay">
@@ -1721,7 +2617,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.35s;">
+                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="350">
                     <div class="region-card" onclick="showRegionDetail('biskra')">
                         <img src="https://media.istockphoto.com/id/466348095/photo/city-meets-the-desert.jpg?s=612x612&w=0&k=20&c=XI1LRond8tqCnbH8jxT8fFMuXihrZiuB1cjVEfM_foM=" alt="Biskra">
                         <div class="region-overlay">
@@ -1735,7 +2631,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.4s;">
+                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="400">
                     <div class="region-card" onclick="showRegionDetail('boumerdes')">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Boumerd%C3%A8s.JPG" alt="Boumerdès">
                         <div class="region-overlay">
@@ -1749,7 +2645,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-3 col-md-4 col-sm-6 fade-in" style="animation-delay: 0.45s;">
+                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="450">
                     <div class="region-card" onclick="showRegionDetail('in-amenas')">
                         <img src="https://media.cnn.com/api/v1/images/stellar/prod/130117011759-elbagir-algeria-hostage-standoff-00002501.jpg?q=w_1280,h_720,x_0,y_0,c_fill" alt="In Amenas">
                         <div class="region-overlay">
@@ -1770,12 +2666,12 @@
     <!-- Cartographie Section with Leaflet Map -->
     <section id="cartographie" class="section-padding bg-white">
         <div class="container">
-            <div class="section-header fade-in">
+            <div class="section-header" data-aos="fade-up">
                 <h2>Cartographie</h2>
                 <p>Localisez nos centres médicaux et infrastructures sociales en Algérie</p>
             </div>
             
-            <div class="map-wrapper fade-in">
+            <div class="map-wrapper" data-aos="fade-up">
                 <div class="filter-buttons">
                     <button class="filter-btn active" onclick="filterMap('all')">Tous</button>
                     <button class="filter-btn" onclick="filterMap('laboratoires')">Laboratoires</button>
@@ -1786,30 +2682,354 @@
                 
                 <div id="algeria-map"></div>
             </div>
+        </div>
+    </section>
+
+    <!-- Animated Stats Section - Orange theme -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="0">
+                    <div class="stat-box-animated">
+                        <div class="stat-icon">
+                            <i class="fas fa-hospital"></i>
+                        </div>
+                        <div class="stat-number" data-target="12">0</div>
+                        <div class="stat-label">Centres Médicaux</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-box-animated">
+                        <div class="stat-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <div class="stat-number" data-target="4">0</div>
+                        <div class="stat-label">Régions</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-box-animated">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-number" data-target="15000">0</div>
+                        <div class="stat-label">Bénéficiaires</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-box-animated">
+                        <div class="stat-icon">
+                            <i class="fas fa-kaaba"></i>
+                        </div>
+                        <div class="stat-number" data-target="250">0</div>
+                        <div class="stat-label">Retraités Omra 2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Director Message Section -->
+    <section class="director-section">
+        <div class="container">
+            <div class="director-container" data-aos="fade-up">
+                <div class="director-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=1000&fit=crop" alt="Directeur DAS SONATRACH" class="director-image">
+                </div>
+                <div class="director-content">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <span class="director-badge">Mot du Directeur</span>
+                    <h2 class="director-title">Engagés pour votre bien-être au quotidien</h2>
+                    <div class="director-text">
+                        <p>Chers collaborateurs et retraités de SONATRACH,</p>
+                        <p>La Direction des Affaires Sociales s'engage quotidiennement à accompagner le personnel et leurs familles dans tous les aspects de leur vie sociale, médicale et culturelle. Notre priorité reste votre bien-être et la qualité des services rendus.</p>
+                        <p>À travers nos 12 centres médicaux répartis sur 4 régions stratégiques, nous assurons une couverture sanitaire optimale et des services sociaux de proximité. Que ce soit pour la médecine de travail, les colonies de vacances de vos enfants, ou l'organisation de l'Omra pour nos retraités, nous mettons tout en œuvre pour répondre à vos attentes.</p>
+                        <p>Ensemble, continuons à bâtir un avenir solidaire et prospère.</p>
+                    </div>
+                    <div class="director-signature">
+                        <div class="signature-name">M. Ahmed Benali</div>
+                        <div class="signature-title">Directeur des Affaires Sociales et Loisirs</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Calendar Section -->
+    <section class="events-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2><i class="fas fa-calendar-alt text-orange me-2"></i>Calendrier des Événements</h2>
+                <p>Ne manquez pas nos prochaines activités et dates importantes</p>
+            </div>
             
-            <div class="row mt-4 g-3 fade-in">
-                <div class="col-md-3 col-6">
-                    <div class="stat-box">
-                        <div class="stat-number">15</div>
-                        <small class="text-muted">Laboratoires</small>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0">
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="event-day">15</span>
+                            <span class="event-month">Mars</span>
+                        </div>
+                        <h4 class="event-title">Départ Omra 2026 - Premier groupe</h4>
+                        <p class="text-muted mb-2">Pèlerinage pour 100 retraités SONATRACH vers les lieux saints.</p>
+                        <div class="event-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Départ Alger</span>
+                            <span><i class="fas fa-users"></i> 100 places</span>
+                        </div>
+                        <span class="event-status status-open">Inscriptions ouvertes</span>
                     </div>
                 </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-box">
-                        <div class="stat-number">23</div>
-                        <small class="text-muted">Centres Médico-Sociaux</small>
+                
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="event-day">01</span>
+                            <span class="event-month">Avril</span>
+                        </div>
+                        <h4 class="event-title">Campagne de Vaccination Annuelle</h4>
+                        <p class="text-muted mb-2">Vaccination grippe saisonnière et rappels pour tout le personnel.</p>
+                        <div class="event-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Tous centres</span>
+                            <span><i class="fas fa-clock"></i> 08h-16h</span>
+                        </div>
+                        <span class="event-status status-upcoming">Bientôt</span>
                     </div>
                 </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-box">
-                        <div class="stat-number">12</div>
-                        <small class="text-muted">Centres Médicaux Travail</small>
+                
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="event-day">15</span>
+                            <span class="event-month">Mai</span>
+                        </div>
+                        <h4 class="event-title">Finale Championnat Inter-régional Football</h4>
+                        <p class="text-muted mb-2">Grande finale du tournoi sportif annuel SONATRACH.</p>
+                        <div class="event-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Stade 5 Juillet</span>
+                            <span><i class="fas fa-trophy"></i> Finale</span>
+                        </div>
+                        <span class="event-status status-upcoming">À venir</span>
                     </div>
                 </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-box">
-                        <div class="stat-number">45+</div>
-                        <small class="text-muted">Cliniques Conventionnées</small>
+                
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="event-day">15</span>
+                            <span class="event-month">Juin</span>
+                        </div>
+                        <h4 class="event-title">Journée de la Circoncision 2026</h4>
+                        <p class="text-muted mb-2">Opération gratuite pour les fils des travailleurs SONATRACH.</p>
+                        <div class="event-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Centres médicaux</span>
+                            <span><i class="fas fa-child"></i> 6 mois - 8 ans</span>
+                        </div>
+                        <span class="event-status status-upcoming">Inscriptions jusqu'au 15 Juin</span>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="event-day">01</span>
+                            <span class="event-month">Juil</span>
+                        </div>
+                        <h4 class="event-title">Départ Colonies de Vacances</h4>
+                        <p class="text-muted mb-2">Séjours estivaux pour les enfants dans nos complexes touristiques.</p>
+                        <div class="event-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Tipaza, Béjaïa, Skikda</span>
+                            <span><i class="fas fa-sun"></i> 15 jours</span>
+                        </div>
+                        <span class="event-status status-upcoming">Préparation</span>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="event-day">20</span>
+                            <span class="event-month">Oct</span>
+                        </div>
+                        <h4 class="event-title">Journée de Retraite 2026</h4>
+                        <p class="text-muted mb-2">Cérémonie d'honneur pour les nouveaux retraités de l'année.</p>
+                        <div class="event-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Palais de la Culture</span>
+                            <span><i class="fas fa-award"></i> Cérémonie</span>
+                        </div>
+                        <span class="event-status status-upcoming">À venir</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2><i class="fas fa-question-circle text-orange me-2"></i>Questions Fréquentes</h2>
+                <p>Trouvez rapidement les réponses à vos questions</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="0">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Qui peut bénéficier du tiers payant ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            Le tiers payant est accessible à tous les travailleurs SONATRACH en activité ainsi qu'aux retraités et leurs ayants droit (conjoints et enfants à charge). La prise en charge s'effectue dans les cliniques et pharmacies conventionnées avec SONATRACH sur présentation de la carte de soins à jour.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="50">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Quels sont les délais de traitement des demandes ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            Les délais varient selon le service : Tiers Payant (48h), Médecine de Travail (3 jours), Omra (15 jours), Médecine Sociale (5 jours), Laboratoires (24-48h pour les résultats). Les demandes sont traitées par ordre d'arrivée avec priorité pour les urgences médicales.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Comment modifier une inscription déjà soumise ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            Pour modifier une inscription, contactez directement le centre médical ou social concerné par téléphone ou email dans les 48h suivant votre demande. Passé ce délai, il faudra soumettre une nouvelle demande et annuler la précédente. Pour les inscriptions Omra, aucune modification n'est possible après validation définitive.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="150">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Quels documents sont nécessaires pour une demande Omra ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            Pour l'Omra, vous devez fournir : CIN valide, extrait de naissance légalisé, 4 photos d'identité fond blanc, certificat médical d'aptitude au voyage, attestation de retraite SONATRACH et passeport biométrique valide (minimum 6 mois de validité). Les inscriptions se font exclusivement en ligne ou au siège de la DAS.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Comment s'inscrire à une campagne de vaccination ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            Les campagnes de vaccination sont annoncées via le site web, les panneaux d'affichage dans les centres et les emails internes. Aucune inscription préalable n'est requise pour la vaccination grippe saisonnière. Il suffit de se présenter avec sa carte de soins aux centres médicaux SONATRACH durant les horaires indiqués.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="250">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Quelles prestations sont réservées aux retraités ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            Les retraités SONATRACH bénéficient de : l'organisation annuelle de l'Omra (places limitées), la journée de retraite annuelle, l'accès aux centres médicaux pour les soins, le tiers payant dans les établissements conventionnés, et les colonies de vacances pour les petits-enfants (sous conditions). Une carte de retraité spécifique est délivrée à la cessation d'activité.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>À quel âge peut-on inscrire un enfant en crèche SONATRACH ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            Les crèches SONATRACH accueillent les enfants de 6 mois à 6 ans. L'inscription se fait sur présentation du carnet de vaccination à jour, du certificat médical de bonne santé et d'une attestation de travail du parent. Les places sont attribuées selon les disponibilités et la proximité du lieu de travail.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="350">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Comment contacter la Direction des Affaires Sociales en cas d'urgence ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            En cas d'urgence médicale, composez directement le numéro vert dédié au personnel SONATRACH disponible 24h/24. Pour les urgences administratives, contactez le standard du siège à Alger. Chaque centre médical dispose également d'une permanence téléphonique durant les heures d'ouverture.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Values Section -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="text-white mb-4">Notre Mission & Nos Valeurs</h2>
+                <p class="mission-text">
+                    La Direction des Affaires Sociales et Loisirs s'engage à fournir des services sociaux, médicaux et culturels d'excellence au personnel SONATRACH et à leurs familles, contribuant ainsi à leur épanouissement et à leur qualité de vie.
+                </p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="0">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <h4 class="value-title">Solidarité</h4>
+                        <p>Accompagner chaque travailleur et sa famille dans les moments importants de leur vie, avec humanité et bienveillance.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h4 class="value-title">Excellence</h4>
+                        <p>Offrir des services de qualité supérieure, en constante amélioration, avec des professionnels qualifiés et motivés.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4 class="value-title">Proximité</h4>
+                        <p>Être présents sur l'ensemble du territoire national, au plus près des besoins des travailleurs et de leurs familles.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4 class="value-title">Confidentialité</h4>
+                        <p>Garantir la protection des données personnelles et médicales de nos bénéficiaires avec la plus grande rigueur.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-12 text-center" data-aos="fade-up">
+                    <div class="p-4" style="background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                        <h4 class="text-white mb-3">Notre Engagement</h4>
+                        <p class="mb-0" style="opacity: 0.9;">
+                            Nous nous engageons à moderniser continuellement nos infrastructures, à former nos équipes aux meilleures pratiques et à innover dans nos services pour répondre aux évolutions des besoins de la population SONATRACH. Votre santé et votre bien-être sont notre priorité absolue.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -1879,8 +3099,16 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <script>
+        // Initialize AOS Animation Library
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
         // Sticky Header
         window.addEventListener('scroll', function() {
             const header = document.getElementById('mainHeader');
@@ -1889,24 +3117,6 @@
             } else {
                 header.classList.remove('scrolled');
             }
-        });
-
-        // Fade in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach((el) => {
-            observer.observe(el);
         });
 
         // Language Selector
@@ -1926,6 +3136,11 @@
             document.getElementById('accueil-services').style.display = 'none';
             document.getElementById('regions').style.display = 'none';
             document.getElementById('cartographie').style.display = 'none';
+            document.querySelector('.stats-section').style.display = 'none';
+            document.querySelector('.director-section').style.display = 'none';
+            document.querySelector('.events-section').style.display = 'none';
+            document.querySelector('.faq-section').style.display = 'none';
+            document.querySelector('.mission-section').style.display = 'none';
             
             // Show services detail section
             const servicesDetail = document.getElementById('services-detail');
@@ -1970,6 +3185,11 @@
             document.getElementById('accueil-services').style.display = 'block';
             document.getElementById('regions').style.display = 'block';
             document.getElementById('cartographie').style.display = 'block';
+            document.querySelector('.stats-section').style.display = 'block';
+            document.querySelector('.director-section').style.display = 'block';
+            document.querySelector('.events-section').style.display = 'block';
+            document.querySelector('.faq-section').style.display = 'block';
+            document.querySelector('.mission-section').style.display = 'block';
             document.getElementById('services-detail').classList.add('d-none');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -2121,22 +3341,122 @@
 
         mapObserver.observe(document.getElementById('cartographie'));
 
-        // Form submissions
-        document.querySelectorAll('form').forEach(form => {
+        // Animated Stats Counter
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            
+            stats.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-target'));
+                const duration = 2000; // 2 seconds
+                const increment = target / (duration / 16); // 60fps
+                let current = 0;
+                
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        stat.textContent = Math.floor(current).toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        stat.textContent = target.toLocaleString();
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Trigger stats animation when section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statsObserver.observe(document.querySelector('.stats-section'));
+
+        // File Upload Handling
+        function handleFileSelect(input, listId) {
+            const files = input.files;
+            const listContainer = document.getElementById(listId);
+            listContainer.innerHTML = '';
+            
+            Array.from(files).forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <span><i class="fas fa-file text-orange me-2"></i>${file.name}</span>
+                    <button type="button" onclick="this.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                listContainer.appendChild(fileItem);
+            });
+        }
+
+        // Drag and drop handling
+        document.querySelectorAll('.upload-zone').forEach(zone => {
+            zone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                zone.classList.add('dragover');
+            });
+            
+            zone.addEventListener('dragleave', () => {
+                zone.classList.remove('dragover');
+            });
+            
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                zone.classList.remove('dragover');
+                const input = zone.querySelector('input[type="file"]');
+                const listId = input.getAttribute('onchange').match(/'([^']+)'/)[1];
+                input.files = e.dataTransfer.files;
+                handleFileSelect(input, listId);
+            });
+        });
+
+        // Form submission handling with success message
+        document.querySelectorAll('.service-form').forEach(form => {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const btn = this.querySelector('button[type="submit"]');
+                const successMsg = this.querySelector('.success-message');
                 const originalText = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-check me-2"></i>Envoyé !';
+                
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Envoi en cours...';
                 btn.disabled = true;
                 
                 setTimeout(() => {
                     btn.innerHTML = originalText;
                     btn.disabled = false;
+                    successMsg.classList.add('show');
                     this.reset();
-                }, 2000);
+                    this.querySelector('.file-list').innerHTML = '';
+                    
+                    setTimeout(() => {
+                        successMsg.classList.remove('show');
+                    }, 3000);
+                }, 1500);
             });
         });
+
+        // FAQ Toggle
+        function toggleFaq(button) {
+            const item = button.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // Close all items
+            document.querySelectorAll('.faq-item').forEach(faq => {
+                faq.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
